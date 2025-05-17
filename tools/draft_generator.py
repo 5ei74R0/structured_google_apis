@@ -197,6 +197,8 @@ def parse_models_from_xml(xml_content: str) -> list[ResourceModel]:
                     field_name_cleaned = re.sub(
                         r"(?<!^)(?=[A-Z])", "_", raw_name
                     ).lower()
+                    if field_name_cleaned.endswith("[]"):
+                        field.is_collection = True
                     field_name_cleaned = field_name_cleaned.replace("[]", "")
                     field_name_cleaned = field_name_cleaned.replace(".", "_")
                     field_name_cleaned = re.sub(r"[\[\]]", "", field_name_cleaned)
@@ -354,8 +356,7 @@ def generate_model_code(model: ResourceModel, all_models: list[ResourceModel]) -
                     f'    {enum_value} = "{field.name}"  # {field.description}'
                 )
         else:
-            lines.append(f"    # No enum values defined in the API documentation")
-            lines.append(f'    UNSPECIFIED = "UNSPECIFIED"')
+            lines.append(f"    # [ERROR] Cannot find enum values")
     else:
         if not model.fields:
             lines.append("    pass")
@@ -366,16 +367,16 @@ def generate_model_code(model: ResourceModel, all_models: list[ResourceModel]) -
                 description_lines = []
                 for i in range(0, len(description), 100):
                     description_lines.append(description[i : i + 100])
+                field_line = f"    {field.name}: {field_type} = Field(\n"
                 if len(description_lines) == 1:
-                    field_line = f'    {field.name}: {field_type} = Field(description="{description}")'
+                    field_line += f'        description="{description_lines[0]}",\n'
                 else:
-                    field_line = f"    {field.name}: {field_type} = Field(\n        description=(\n"
-                    for i, line in enumerate(description_lines):
-                        if i < len(description_lines) - 1:
-                            field_line += f'            "{line}"\n'
-                        else:
-                            field_line += f'            "{line}"\n'
-                    field_line += "        )\n    )"
+                    field_line += f"        description=(\n"
+                    for line in description_lines:
+                        field_line += f'            "{line}",\n'
+                    field_line += f"        ),\n"
+                field_line += "        default=None,\n"
+                field_line += "    )"
                 lines.append(field_line)
     lines.append("")
     return "\n".join(lines)
@@ -389,22 +390,18 @@ def get_python_type(field: Field, model_names: list[str]) -> str:
         "number": "float",
         "boolean": "bool",
     }
+    type_str = type_mapping.get(field.type_name.lower(), field.type_name)
     if field.is_enum:
-        return f"Optional[{field.type_name}]"
-    base_type = type_mapping.get(field.type_name.lower(), field.type_name)
-    if field.type_name in model_names:
-        base_type = field.type_name
-    if field.is_collection:
-        return f"list[{base_type}]"
+        type_str = field.type_name
     if field.is_map:
         key_type = type_mapping.get(field.map_key_type.lower(), field.map_key_type)
-        value_type = field.map_value_type
-        if field.map_value_type in model_names:
-            value_type = field.map_value_type
-        else:
-            value_type = type_mapping.get(field.map_value_type.lower(), "Any")
-        return f"dict[{key_type}, {value_type}]"
-    return f"Optional[{base_type}]"
+        value_type = type_mapping.get(
+            field.map_value_type.lower(), field.map_value_type
+        )
+        type_str = f"dict[{key_type}, {value_type}]"
+    if field.is_collection:
+        type_str = f"list[{type_str}]"
+    return f"Optional[{type_str}]"
 
 
 def main():

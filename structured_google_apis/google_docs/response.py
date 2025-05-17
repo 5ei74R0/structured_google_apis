@@ -16,7 +16,10 @@ class CreateFooterResponse(BaseModel):
         alias_generator=alias_generators.to_camel,
     )
 
-    footer_id: Optional[str] = Field(description="The ID of the created footer.")
+    footer_id: Optional[str] = Field(
+        description="The ID of the created footer.",
+        default=None,
+    )
 
 
 class CreateFootnoteResponse(BaseModel):
@@ -30,7 +33,10 @@ class CreateFootnoteResponse(BaseModel):
         alias_generator=alias_generators.to_camel,
     )
 
-    footnote_id: Optional[str] = Field(description="The ID of the created footnote.")
+    footnote_id: Optional[str] = Field(
+        description="The ID of the created footnote.",
+        default=None,
+    )
 
 
 class CreateHeaderResponse(BaseModel):
@@ -44,7 +50,10 @@ class CreateHeaderResponse(BaseModel):
         alias_generator=alias_generators.to_camel,
     )
 
-    header_id: Optional[str] = Field(description="The ID of the created header.")
+    header_id: Optional[str] = Field(
+        description="The ID of the created header.",
+        default=None,
+    )
 
 
 class CreateNamedRangeResponse(BaseModel):
@@ -59,7 +68,8 @@ class CreateNamedRangeResponse(BaseModel):
     )
 
     named_range_id: Optional[str] = Field(
-        description="The ID of the created named range."
+        description="The ID of the created named range.",
+        default=None,
     )
 
 
@@ -74,7 +84,10 @@ class InsertInlineImageResponse(BaseModel):
         alias_generator=alias_generators.to_camel,
     )
 
-    object_id: Optional[str] = Field(description="The ID of the created InlineObject.")
+    object_id: Optional[str] = Field(
+        description="The ID of the created InlineObject.",
+        default=None,
+    )
 
 
 class InsertInlineSheetsChartResponse(BaseModel):
@@ -88,7 +101,10 @@ class InsertInlineSheetsChartResponse(BaseModel):
         alias_generator=alias_generators.to_camel,
     )
 
-    object_id: Optional[str] = Field(description="The object ID of the inserted chart.")
+    object_id: Optional[str] = Field(
+        description="The object ID of the inserted chart.",
+        default=None,
+    )
 
 
 class ReplaceAllTextResponse(BaseModel):
@@ -103,7 +119,8 @@ class ReplaceAllTextResponse(BaseModel):
     )
 
     occurrences_changed: Optional[int] = Field(
-        description="The number of occurrences changed by replacing all text."
+        description="The number of occurrences changed by replacing all text.",
+        default=None,
     )
 
 
@@ -119,23 +136,30 @@ class Response(BaseModel):
     )
 
     replace_all_text: Optional[ReplaceAllTextResponse] = Field(
-        description="The result of replacing text."
+        description="The result of replacing text.",
+        default=None,
     )
     create_named_range: Optional[CreateNamedRangeResponse] = Field(
-        description="The result of creating a named range."
+        description="The result of creating a named range.",
+        default=None,
     )
     insert_inline_image: Optional[InsertInlineImageResponse] = Field(
-        description="The result of inserting an inline image."
+        description="The result of inserting an inline image.",
+        default=None,
     )
     insert_inline_sheets_chart: Optional[InsertInlineSheetsChartResponse] = Field(
-        description="The result of inserting an inline Google Sheets chart."
+        description="The result of inserting an inline Google Sheets chart.",
+        default=None,
     )
     create_header: Optional[CreateHeaderResponse] = Field(
-        description="The result of creating a header."
+        description="The result of creating a header.",
+        default=None,
     )
     create_footer: Optional[CreateFooterResponse] = Field(
-        description="The result of creating a footer."
+        description="The result of creating a footer.",
+        default=None,
     )
     create_footnote: Optional[CreateFootnoteResponse] = Field(
-        description="The result of creating a footnote."
+        description="The result of creating a footnote.",
+        default=None,
     )
