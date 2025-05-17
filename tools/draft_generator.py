@@ -5,7 +5,7 @@ Script to parse Google Docs API XML documentation and generate Pydantic models
 import re
 import sys
 from pathlib import Path
-from typing import Optional, Set, Tuple
+from typing import Literal, Optional, Set, Tuple
 
 from bs4 import BeautifulSoup
 
@@ -42,6 +42,7 @@ class ResourceModel:
         self.description = description
         self.fields: list[Field] = []
         self.url = ""
+        self.resource_type: Literal["object", "enum"] = "object"
 
 
 def _parse_map(schema: str) -> Optional[Tuple[str, str]]:
@@ -160,6 +161,7 @@ def parse_models_from_xml(xml_content: str) -> list[ResourceModel]:
         enum_section = section.find("section", {"id": section_id + ".ENUM_VALUES"})
         fields_section = section.find("section", {"id": section_id + ".FIELDS"})
         if enum_section is not None:
+            model.resource_type = "enum"
             enum_table = enum_section.find("tbody")
             if enum_table is not None:
                 enum_rows = enum_table.find_all("tr")
@@ -182,6 +184,7 @@ def parse_models_from_xml(xml_content: str) -> list[ResourceModel]:
                     )
                     model.fields.append(field)
         elif fields_section is not None:
+            model.resource_type = "object"
             fields_table = fields_section.find(
                 "table", {"id": section_id + ".FIELDS-table"}
             )
@@ -338,7 +341,7 @@ def generate_model_code(model: ResourceModel, all_models: list[ResourceModel]) -
             "",
         ]
     )
-    if any(field.is_enum for field in model.fields):
+    if model.resource_type == "enum":
         lines = [
             f"class {model.name}(str, Enum):",
             f'    """',
@@ -346,13 +349,18 @@ def generate_model_code(model: ResourceModel, all_models: list[ResourceModel]) -
         ]
         if model.url:
             lines.append(f"    {model.url}")
+        if model.fields:
+            for field in model.fields:
+                lines.append("")
+                for i, line in enumerate(field.description.splitlines()):
+                    enum_value = field.name.upper()
+                    indentation = f"    {enum_value}: " if i == 0 else "    "
+                    lines.append(f"{indentation}{line}")
         lines.append(f'    """')
         if model.fields:
             for field in model.fields:
                 enum_value = field.name.upper()
-                lines.append(
-                    f'    {enum_value} = "{field.name}"  # {field.description}'
-                )
+                lines.append(f'    {enum_value} = "{field.name}"')
         else:
             lines.append(f"    # [ERROR] Cannot find enum values")
     else:
