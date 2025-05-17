@@ -9,9 +9,9 @@ def get_fields(basemodel: BaseModel) -> str:
         basemodel (BaseModel): The Pydantic model to get fields from.
 
     Returns:
-        str: A list of field names separated by commas.
+        str: A list of used field names separated by commas.
     """
-    return ", ".join([name for name, _ in basemodel.__annotations__.items()])
+    return ",".join([field for field in get_dict_request(basemodel).keys()])
 
 
 def get_dict_request(basemodel: BaseModel) -> dict:
