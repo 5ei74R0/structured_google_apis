@@ -10,7 +10,6 @@ from .resource import (
     ParagraphStyle,
     Range,
     SectionStyle,
-    SectionType,
     Size,
     TableCellStyle,
     TableColumnProperties,
@@ -31,123 +30,30 @@ class HeaderFooterType(str, Enum):
     DEFAULT = "DEFAULT"  # A default header/footer.
 
 
-class BulletGlyphPreset(BaseModel):
+class BulletGlyphPreset(str, Enum):
     """
     Preset patterns of bullet glyphs for lists.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#bulletglyphpreset
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
+    BULLET_GLYPH_PRESET_UNSPECIFIED = (
+        "BULLET_GLYPH_PRESET_UNSPECIFIED"  # The bullet glyph preset is unspecified.
     )
-
-    BULLET_GLYPH_PRESET_UNSPECIFIED: Optional[str] = Field(
-        description="The bullet glyph preset is unspecified.",
-        default=None,
-    )
-    BULLET_DISC_CIRCLE_SQUARE: Optional[str] = Field(
-        description=(
-            "A bulleted list with a  DISC,  CIRCLE  and  SQUARE  bullet glyph for the fi",
-            "rst 3 list nesting levels.",
-        ),
-        default=None,
-    )
-    BULLET_DIAMONDX_ARROW3D_SQUARE: Optional[str] = Field(
-        description=(
-            "A bulleted list with a  DIAMONDX,  ARROW3D  and  SQUARE  bullet glyph for t",
-            "he first 3 list nesting levels.",
-        ),
-        default=None,
-    )
-    BULLET_CHECKBOX: Optional[str] = Field(
-        description="A bulleted list with CHECKBOX bullet glyphs for all list nesting levels.",
-        default=None,
-    )
-    BULLET_ARROW_DIAMOND_DISC: Optional[str] = Field(
-        description=(
-            "A bulleted list with a  ARROW,  DIAMOND  and  DISC  bullet glyph for the fi",
-            "rst 3 list nesting levels.",
-        ),
-        default=None,
-    )
-    BULLET_STAR_CIRCLE_SQUARE: Optional[str] = Field(
-        description=(
-            "A bulleted list with a  STAR,  CIRCLE  and  SQUARE  bullet glyph for the fi",
-            "rst 3 list nesting levels.",
-        ),
-        default=None,
-    )
-    BULLET_ARROW3D_CIRCLE_SQUARE: Optional[str] = Field(
-        description=(
-            "A bulleted list with a  ARROW3D,  CIRCLE  and  SQUARE  bullet glyph for the",
-            " first 3 list nesting levels.",
-        ),
-        default=None,
-    )
-    BULLET_LEFTTRIANGLE_DIAMOND_DISC: Optional[str] = Field(
-        description=(
-            "A bulleted list with a  LEFTTRIANGLE,  DIAMOND  and  DISC  bullet glyph for",
-            " the first 3 list nesting levels.",
-        ),
-        default=None,
-    )
-    BULLET_DIAMONDX_HOLLOWDIAMOND_SQUARE: Optional[str] = Field(
-        description=(
-            "A bulleted list with a  DIAMONDX,  HOLLOWDIAMOND  and  SQUARE  bullet glyph",
-            " for the first 3 list nesting levels.",
-        ),
-        default=None,
-    )
-    BULLET_DIAMOND_CIRCLE_SQUARE: Optional[str] = Field(
-        description=(
-            "A bulleted list with a  DIAMOND,  CIRCLE  and  SQUARE  bullet glyph for the",
-            " first 3 list nesting levels.",
-        ),
-        default=None,
-    )
-    NUMBERED_DECIMAL_ALPHA_ROMAN: Optional[str] = Field(
-        description=(
-            "A numbered list with DECIMAL, ALPHA and ROMAN numeric glyphs for the f",
-            "irst 3 list nesting levels, followed by periods.",
-        ),
-        default=None,
-    )
-    NUMBERED_DECIMAL_ALPHA_ROMAN_PARENS: Optional[str] = Field(
-        description=(
-            "A numbered list with DECIMAL, ALPHA and ROMAN numeric glyphs for the f",
-            "irst 3 list nesting levels, followed by parenthesis.",
-        ),
-        default=None,
-    )
-    NUMBERED_DECIMAL_NESTED: Optional[str] = Field(
-        description=(
-            "A numbered list with DECIMAL numeric glyphs separated by periods, where each nesting lev",
-            "el uses the previous nesting level's glyph as a prefix. For example: '1.', '1.1.', '2.', '2.2.'.",
-        ),
-        default=None,
-    )
-    NUMBERED_UPPERALPHA_ALPHA_ROMAN: Optional[str] = Field(
-        description=(
-            "A numbered list with UPPERALPHA, ALPHA and ROMAN numeric glyphs for th",
-            "e first 3 list nesting levels, followed by periods.",
-        ),
-        default=None,
-    )
-    NUMBERED_UPPERROMAN_UPPERALPHA_DECIMAL: Optional[str] = Field(
-        description=(
-            "A numbered list with UPPERROMAN, UPPERALPHA and DECIMAL numeric glyphs",
-            " for the first 3 list nesting levels, followed by periods.",
-        ),
-        default=None,
-    )
-    NUMBERED_ZERODECIMAL_ALPHA_ROMAN: Optional[str] = Field(
-        description=(
-            "A numbered list with ZERODECIMAL, ALPHA and ROMAN numeric glyphs for t",
-            "he first 3 list nesting levels, followed by periods.",
-        ),
-        default=None,
-    )
+    BULLET_DISC_CIRCLE_SQUARE = "BULLET_DISC_CIRCLE_SQUARE"  # A bulleted list with a DISC, CIRCLE and SQUARE bullet glyph for the first 3 list nesting levels.
+    BULLET_DIAMONDX_ARROW3D_SQUARE = "BULLET_DIAMONDX_ARROW3D_SQUARE"  # A bulleted list with a DIAMONDX, ARROW3D and SQUARE bullet glyph for the first 3 list nesting levels.
+    BULLET_CHECKBOX = "BULLET_CHECKBOX"  # A bulleted list with CHECKBOX bullet glyphs for all list nesting levels.
+    BULLET_ARROW_DIAMOND_DISC = "BULLET_ARROW_DIAMOND_DISC"  # A bulleted list with a ARROW, DIAMOND and DISC bullet glyph for the first 3 list nesting levels.
+    BULLET_STAR_CIRCLE_SQUARE = "BULLET_STAR_CIRCLE_SQUARE"  # A bulleted list with a STAR, CIRCLE and SQUARE bullet glyph for the first 3 list nesting levels.
+    BULLET_ARROW3D_CIRCLE_SQUARE = "BULLET_ARROW3D_CIRCLE_SQUARE"  # A bulleted list with a ARROW3D, CIRCLE and SQUARE bullet glyph for the first 3 list nesting levels.
+    BULLET_LEFTTRIANGLE_DIAMOND_DISC = "BULLET_LEFTTRIANGLE_DIAMOND_DISC"  # A bulleted list with a LEFTTRIANGLE, DIAMOND and DISC bullet glyph for the first 3 list nesting levels.
+    BULLET_DIAMONDX_HOLLOWDIAMOND_SQUARE = "BULLET_DIAMONDX_HOLLOWDIAMOND_SQUARE"  # A bulleted list with a DIAMONDX, HOLLOWDIAMOND and SQUARE bullet glyph for the first 3 list nesting levels.
+    BULLET_DIAMOND_CIRCLE_SQUARE = "BULLET_DIAMOND_CIRCLE_SQUARE"  # A bulleted list with a DIAMOND, CIRCLE and SQUARE bullet glyph for the first 3 list nesting levels.
+    NUMBERED_DECIMAL_ALPHA_ROMAN = "NUMBERED_DECIMAL_ALPHA_ROMAN"  # A numbered list with DECIMAL, ALPHA and ROMAN numeric glyphs for the first 3 list nesting levels, followed by periods.
+    NUMBERED_DECIMAL_ALPHA_ROMAN_PARENS = "NUMBERED_DECIMAL_ALPHA_ROMAN_PARENS"  # A numbered list with DECIMAL, ALPHA and ROMAN numeric glyphs for the first 3 list nesting levels, followed by parenthesis.
+    NUMBERED_DECIMAL_NESTED = "NUMBERED_DECIMAL_NESTED"  # A numbered list with DECIMAL numeric glyphs separated by periods, where each nesting level uses the previous nesting level's glyph as a prefix. For example: '1.', '1.1.', '2.', '2.2.'.
+    NUMBERED_UPPERALPHA_ALPHA_ROMAN = "NUMBERED_UPPERALPHA_ALPHA_ROMAN"  # A numbered list with UPPERALPHA, ALPHA and ROMAN numeric glyphs for the first 3 list nesting levels, followed by periods.
+    NUMBERED_UPPERROMAN_UPPERALPHA_DECIMAL = "NUMBERED_UPPERROMAN_UPPERALPHA_DECIMAL"  # A numbered list with UPPERROMAN, UPPERALPHA and DECIMAL numeric glyphs for the first 3 list nesting levels, followed by periods.
+    NUMBERED_ZERODECIMAL_ALPHA_ROMAN = "NUMBERED_ZERODECIMAL_ALPHA_ROMAN"  # A numbered list with ZERODECIMAL, ALPHA and ROMAN numeric glyphs for the first 3 list nesting levels, followed by periods.
 
 
 class CreateNamedRangeRequest(BaseModel):
@@ -174,25 +80,14 @@ class CreateNamedRangeRequest(BaseModel):
     )
 
 
-class CreateParagraphBulletsRequest(BaseModel):
+class CreateParagraphBulletsRequest(str, Enum):
     """
     Creates bullets for all of the paragraphs that overlap with the given range.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#createparagraphbulletsrequest
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    range: Optional[Range] = Field(
-        description="The range to apply the bullet preset to.",
-        default=None,
-    )
-    bullet_preset: Optional[BulletGlyphPreset] = Field(
-        description="The kinds of bullet glyphs to be used.",
-        default=None,
-    )
+    RANGE = "range"  # The range to apply the bullet preset to.
+    BULLET_PRESET = "bullet_preset"  # The kinds of bullet glyphs to be used.
 
 
 class DeleteContentRangeRequest(BaseModel):
@@ -352,29 +247,14 @@ class EndOfSegmentLocation(BaseModel):
     )
 
 
-class ImageReplaceMethod(BaseModel):
+class ImageReplaceMethod(str, Enum):
     """
     The image replace method.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#imagereplacemethod
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    IMAGE_REPLACE_METHOD_UNSPECIFIED: Optional[str] = Field(
-        description="Unspecified image replace method. This value must not be used.",
-        default=None,
-    )
-    CENTER_CROP: Optional[str] = Field(
-        description=(
-            "Scales and centers the image to fill the bounds of the original image. The image may be cropped in o",
-            "rder to fill the original image's bounds. The rendered size of the image will be the same as the ori",
-            "ginal image.",
-        ),
-        default=None,
-    )
+    IMAGE_REPLACE_METHOD_UNSPECIFIED = "IMAGE_REPLACE_METHOD_UNSPECIFIED"  # Unspecified image replace method. This value must not be used.
+    CENTER_CROP = "CENTER_CROP"  # Scales and centers the image to fill the bounds of the original image. The image may be cropped in order to fill the original image's bounds. The rendered size of the image will be the same as the original image.
 
 
 class Location(BaseModel):
@@ -434,46 +314,16 @@ class PinTableHeaderRowsRequest(BaseModel):
     )
 
 
-class ReplaceImageRequest(BaseModel):
+class ReplaceImageRequest(str, Enum):
     """
     Replaces an existing image with a new image.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#replaceimagerequest
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    image_object_id: Optional[str] = Field(
-        description=(
-            "The ID of the existing image that will be replaced. The ID can be retrieved from the response of a g",
-            "et request.",
-        ),
-        default=None,
-    )
-    uri: Optional[str] = Field(
-        description=(
-            "The URI of the new image. The image is fetched once at insertion time and a copy is stored for displ",
-            "ay inside the document. Images must be less than 50MB, cannot exceed 25 megapixels, and must be in P",
-            "NG, JPEG, or GIF format. The provided URI can't surpass 2 KB in length. The URI is saved with the im",
-            "age, and exposed through the ImageProperties.source_uri field.",
-        ),
-        default=None,
-    )
-    image_replace_method: Optional[ImageReplaceMethod] = Field(
-        description="The replacement method.",
-        default=None,
-    )
-    tab_id: Optional[str] = Field(
-        description=(
-            "The tab that the image to be replaced is in. When omitted, the request is applied to the first tab. ",
-            "In a document containing a single tab: If provided, must match the singular tab's ID. If omitted, th",
-            "e request applies to the singular tab. In a document containing multiple tabs: If provided, the requ",
-            "est applies to the specified tab. If omitted, the request applies to the first tab in the document.",
-        ),
-        default=None,
-    )
+    IMAGE_OBJECT_ID = "image_object_id"  # The ID of the existing image that will be replaced. The ID can be retrieved from the response of a get request.
+    URI = "uri"  # The URI of the new image. The image is fetched once at insertion time and a copy is stored for display inside the document. Images must be less than 50MB, cannot exceed 25 megapixels, and must be in PNG, JPEG, or GIF format. The provided URI can't surpass 2 KB in length. The URI is saved with the image, and exposed through the ImageProperties.source_uri field.
+    IMAGE_REPLACE_METHOD = "image_replace_method"  # The replacement method.
+    TAB_ID = "tab_id"  # The tab that the image to be replaced is in. When omitted, the request is applied to the first tab. In a document containing a single tab: If provided, must match the singular tab's ID. If omitted, the request applies to the singular tab. In a document containing multiple tabs: If provided, the request applies to the specified tab. If omitted, the request applies to the first tab in the document.
 
 
 class SubstringMatchCriteria(BaseModel):
@@ -859,29 +709,14 @@ class UpdateTextStyleRequest(BaseModel):
     )
 
 
-class CreateFooterRequest(BaseModel):
+class CreateFooterRequest(str, Enum):
     """
     Creates a Footer. The new footer is applied to the SectionStyle at the location of the SectionBreak if specified, otherwise it is applied to the DocumentStyle.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#createfooterrequest
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    type: Optional[HeaderFooterType] = Field(
-        description="The type of footer to create.",
-        default=None,
-    )
-    section_break_location: Optional[Location] = Field(
-        description=(
-            "The location of the SectionBreak immediately preceding the section whose SectionStyle this footer sh",
-            "ould belong to. If this is unset or refers to the first section break in the document, the footer ap",
-            "plies to the document style.",
-        ),
-        default=None,
-    )
+    TYPE = "type"  # The type of footer to create.
+    SECTION_BREAK_LOCATION = "section_break_location"  # The location of the SectionBreak immediately preceding the section whose SectionStyle this footer should belong to. If this is unset or refers to the first section break in the document, the footer applies to the document style.
 
 
 class CreateFootnoteRequest(BaseModel):
@@ -915,29 +750,14 @@ class CreateFootnoteRequest(BaseModel):
     )
 
 
-class CreateHeaderRequest(BaseModel):
+class CreateHeaderRequest(str, Enum):
     """
     Creates a Header. The new header is applied to the SectionStyle at the location of the SectionBreak if specified, otherwise it is applied to the DocumentStyle.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#createheaderrequest
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    type: Optional[HeaderFooterType] = Field(
-        description="The type of header to create.",
-        default=None,
-    )
-    section_break_location: Optional[Location] = Field(
-        description=(
-            "The location of the SectionBreak which begins the section this header should belong to. If `sectionB",
-            "reakLocation' is unset or if it refers to the first section break in the document body, the header a",
-            "pplies to the DocumentStyle",
-        ),
-        default=None,
-    )
+    TYPE = "type"  # The type of header to create.
+    SECTION_BREAK_LOCATION = "section_break_location"  # The location of the SectionBreak which begins the section this header should belong to. If `sectionBreakLocation' is unset or if it refers to the first section break in the document body, the header applies to the DocumentStyle
 
 
 class DeleteNamedRangeRequest(BaseModel):
@@ -1094,39 +914,15 @@ class InsertPageBreakRequest(BaseModel):
     )
 
 
-class InsertSectionBreakRequest(BaseModel):
+class InsertSectionBreakRequest(str, Enum):
     """
     Inserts a section break at the given location.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#insertsectionbreakrequest
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    section_type: Optional[SectionType] = Field(
-        description="The type of section to insert.",
-        default=None,
-    )
-    location: Optional[Location] = Field(
-        description=(
-            "Inserts a newline and a section break at a specific index in the document. The section break must be",
-            " inserted inside the bounds of an existing Paragraph. For instance, it cannot be inserted at a table",
-            "'s start index (i.e. between the table and its preceding paragraph). Section breaks cannot be insert",
-            "ed inside a table, equation, footnote, header, or footer. Since section breaks can only be inserted ",
-            "inside the body, the segment ID field must be empty.",
-        ),
-        default=None,
-    )
-    end_of_segment_location: Optional[EndOfSegmentLocation] = Field(
-        description=(
-            "Inserts a newline and a section break at the end of the document body. Section breaks cannot be inse",
-            "rted inside a footnote, header or footer. Because section breaks can only be inserted inside the bod",
-            "y, the segment ID field must be empty.",
-        ),
-        default=None,
-    )
+    SECTION_TYPE = "section_type"  # The type of section to insert.
+    LOCATION = "location"  # Inserts a newline and a section break at a specific index in the document. The section break must be inserted inside the bounds of an existing Paragraph. For instance, it cannot be inserted at a table's start index (i.e. between the table and its preceding paragraph). Section breaks cannot be inserted inside a table, equation, footnote, header, or footer. Since section breaks can only be inserted inside the body, the segment ID field must be empty.
+    END_OF_SEGMENT_LOCATION = "end_of_segment_location"  # Inserts a newline and a section break at the end of the document body. Section breaks cannot be inserted inside a footnote, header or footer. Because section breaks can only be inserted inside the body, the segment ID field must be empty.
 
 
 class InsertTableColumnRequest(BaseModel):

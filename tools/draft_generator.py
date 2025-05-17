@@ -126,7 +126,8 @@ def parse_models_from_xml(xml_content: str) -> list[ResourceModel]:
     """Parse resource models from the XML documentation"""
     soup = BeautifulSoup(xml_content, "html.parser")
     models = []
-    resource_sections = soup.find_all("section")
+    resource_root = soup.find("div", class_="devsite-article-body")
+    resource_sections = resource_root.find_all("section")
     empty_object_types = set()
     toc_links = soup.select("ul.toc li a")
     for link in toc_links:
@@ -157,8 +158,9 @@ def parse_models_from_xml(xml_content: str) -> list[ResourceModel]:
         if h2_id:
             model.url = f"https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#{h2_id}"
         enum_section = section.find("section", {"id": section_id + ".ENUM_VALUES"})
+        fields_section = section.find("section", {"id": section_id + ".FIELDS"})
         if enum_section is not None:
-            enum_table = enum_section.find("table")
+            enum_table = enum_section.find("tbody")
             if enum_table is not None:
                 enum_rows = enum_table.find_all("tr")
                 for row in enum_rows:
@@ -179,8 +181,7 @@ def parse_models_from_xml(xml_content: str) -> list[ResourceModel]:
                         is_enum=True,
                     )
                     model.fields.append(field)
-        fields_section = section.find("section", {"id": section_id + ".FIELDS"})
-        if fields_section is not None and not enum_section:
+        elif fields_section is not None:
             fields_table = fields_section.find(
                 "table", {"id": section_id + ".FIELDS-table"}
             )
@@ -320,7 +321,6 @@ def generate_pydantic_models(models: list[ResourceModel]) -> str:
 
 def generate_model_code(model: ResourceModel, all_models: list[ResourceModel]) -> str:
     """Generate code for a specific model"""
-    model_names = [m.name for m in all_models]
     lines = [
         f"class {model.name}(BaseModel):",
         f'    """',
@@ -338,9 +338,7 @@ def generate_model_code(model: ResourceModel, all_models: list[ResourceModel]) -
             "",
         ]
     )
-    if model.name.endswith("Type") or (
-        any(field.is_enum for field in model.fields) and len(model.fields) == 1
-    ):
+    if any(field.is_enum for field in model.fields):
         lines = [
             f"class {model.name}(str, Enum):",
             f'    """',
@@ -362,7 +360,7 @@ def generate_model_code(model: ResourceModel, all_models: list[ResourceModel]) -
             lines.append("    pass")
         else:
             for field in model.fields:
-                field_type = get_python_type(field, model_names)
+                field_type = get_python_type(field)
                 description = field.description.replace('"', '\\"')
                 description_lines = []
                 for i in range(0, len(description), 100):
@@ -382,7 +380,7 @@ def generate_model_code(model: ResourceModel, all_models: list[ResourceModel]) -
     return "\n".join(lines)
 
 
-def get_python_type(field: Field, model_names: list[str]) -> str:
+def get_python_type(field: Field) -> str:
     """Determine the Python type annotation for a field"""
     type_mapping = {
         "string": "str",
@@ -392,7 +390,7 @@ def get_python_type(field: Field, model_names: list[str]) -> str:
     }
     type_str = type_mapping.get(field.type_name.lower(), field.type_name)
     if field.is_enum:
-        type_str = field.type_name
+        return type_str
     if field.is_map:
         key_type = type_mapping.get(field.map_key_type.lower(), field.map_key_type)
         value_type = type_mapping.get(

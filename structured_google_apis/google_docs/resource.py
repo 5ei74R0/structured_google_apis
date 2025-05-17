@@ -83,40 +83,19 @@ class WidthType(str, Enum):
     FIXED_WIDTH = "FIXED_WIDTH"  # A fixed column width. The [width][google.apps.docs.v1.TableColumnProperties.width property contains the column's width.
 
 
-class Alignment(BaseModel):
+class Alignment(str, Enum):
     """
     The types of text alignment for a paragraph.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#alignment
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
+    ALIGNMENT_UNSPECIFIED = (
+        "ALIGNMENT_UNSPECIFIED"  # The paragraph alignment is inherited from the parent.
     )
-
-    ALIGNMENT_UNSPECIFIED: Optional[str] = Field(
-        description="The paragraph alignment is inherited from the parent.",
-        default=None,
-    )
-    START: Optional[str] = Field(
-        description=(
-            "The paragraph is aligned to the start of the line. Left-aligned for LTR text, right-aligned otherwis",
-            "e.",
-        ),
-        default=None,
-    )
-    CENTER: Optional[str] = Field(
-        description="The paragraph is centered.",
-        default=None,
-    )
-    END: Optional[str] = Field(
-        description="The paragraph is aligned to the end of the line. Right-aligned for LTR text, left-aligned otherwise.",
-        default=None,
-    )
-    JUSTIFIED: Optional[str] = Field(
-        description="The paragraph is justified.",
-        default=None,
-    )
+    START = "START"  # The paragraph is aligned to the start of the line. Left-aligned for LTR text, right-aligned otherwise.
+    CENTER = "CENTER"  # The paragraph is centered.
+    END = "END"  # The paragraph is aligned to the end of the line. Right-aligned for LTR text, left-aligned otherwise.
+    JUSTIFIED = "JUSTIFIED"  # The paragraph is justified.
 
 
 class BackgroundSuggestionState(BaseModel):
@@ -136,33 +115,16 @@ class BackgroundSuggestionState(BaseModel):
     )
 
 
-class BaselineOffset(BaseModel):
+class BaselineOffset(str, Enum):
     """
     The ways in which text can be vertically offset from its normal position.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#baselineoffset
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    BASELINE_OFFSET_UNSPECIFIED: Optional[str] = Field(
-        description="The text's baseline offset is inherited from the parent.",
-        default=None,
-    )
-    NONE: Optional[str] = Field(
-        description="The text is not vertically offset.",
-        default=None,
-    )
-    SUPERSCRIPT: Optional[str] = Field(
-        description="The text is vertically offset upwards (superscript).",
-        default=None,
-    )
-    SUBSCRIPT: Optional[str] = Field(
-        description="The text is vertically offset downwards (subscript).",
-        default=None,
-    )
+    BASELINE_OFFSET_UNSPECIFIED = "BASELINE_OFFSET_UNSPECIFIED"  # The text's baseline offset is inherited from the parent.
+    NONE = "NONE"  # The text is not vertically offset.
+    SUPERSCRIPT = "SUPERSCRIPT"  # The text is vertically offset upwards (superscript).
+    SUBSCRIPT = "SUBSCRIPT"  # The text is vertically offset downwards (subscript).
 
 
 class BookmarkLink(BaseModel):
@@ -186,131 +148,61 @@ class BookmarkLink(BaseModel):
     )
 
 
-class BulletAlignment(BaseModel):
+class BulletAlignment(str, Enum):
     """
     The types of alignment for a bullet.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#bulletalignment
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
+    BULLET_ALIGNMENT_UNSPECIFIED = (
+        "BULLET_ALIGNMENT_UNSPECIFIED"  # The bullet alignment is unspecified.
     )
-
-    BULLET_ALIGNMENT_UNSPECIFIED: Optional[str] = Field(
-        description="The bullet alignment is unspecified.",
-        default=None,
-    )
-    START: Optional[str] = Field(
-        description=(
-            "The bullet is aligned to the start of the space allotted for rendering the bullet. Left-aligned for ",
-            "LTR text, right-aligned otherwise.",
-        ),
-        default=None,
-    )
-    CENTER: Optional[str] = Field(
-        description="The bullet is aligned to the center of the space allotted for rendering the bullet.",
-        default=None,
-    )
-    END: Optional[str] = Field(
-        description=(
-            "The bullet is aligned to the end of the space allotted for rendering the bullet. Right-aligned for L",
-            "TR text, left-aligned otherwise.",
-        ),
-        default=None,
-    )
+    START = "START"  # The bullet is aligned to the start of the space allotted for rendering the bullet. Left-aligned for LTR text, right-aligned otherwise.
+    CENTER = "CENTER"  # The bullet is aligned to the center of the space allotted for rendering the bullet.
+    END = "END"  # The bullet is aligned to the end of the space allotted for rendering the bullet. Right-aligned for LTR text, left-aligned otherwise.
 
 
-class ColumnSeparatorStyle(BaseModel):
+class ColumnSeparatorStyle(str, Enum):
     """
     The style of column separators between columns.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#columnseparatorstyle
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
+    COLUMN_SEPARATOR_STYLE_UNSPECIFIED = (
+        "COLUMN_SEPARATOR_STYLE_UNSPECIFIED"  # An unspecified column separator style.
     )
-
-    COLUMN_SEPARATOR_STYLE_UNSPECIFIED: Optional[str] = Field(
-        description="An unspecified column separator style.",
-        default=None,
-    )
-    NONE: Optional[str] = Field(
-        description="No column separator lines between columns.",
-        default=None,
-    )
-    BETWEEN_EACH_COLUMN: Optional[str] = Field(
-        description="Renders a column separator line between each column.",
-        default=None,
+    NONE = "NONE"  # No column separator lines between columns.
+    BETWEEN_EACH_COLUMN = (
+        "BETWEEN_EACH_COLUMN"  # Renders a column separator line between each column.
     )
 
 
-class ContentAlignment(BaseModel):
+class ContentAlignment(str, Enum):
     """
     The types of content alignment.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#contentalignment
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
+    CONTENT_ALIGNMENT_UNSPECIFIED = "CONTENT_ALIGNMENT_UNSPECIFIED"  # An unspecified content alignment. The content alignment is inherited from the parent if one exists.
+    CONTENT_ALIGNMENT_UNSUPPORTED = (
+        "CONTENT_ALIGNMENT_UNSUPPORTED"  # An unsupported content alignment.
     )
-
-    CONTENT_ALIGNMENT_UNSPECIFIED: Optional[str] = Field(
-        description="An unspecified content alignment. The content alignment is inherited from the parent if one exists.",
-        default=None,
-    )
-    CONTENT_ALIGNMENT_UNSUPPORTED: Optional[str] = Field(
-        description="An unsupported content alignment.",
-        default=None,
-    )
-    TOP: Optional[str] = Field(
-        description=(
-            "An alignment that aligns the content to the top of the content holder. Corresponds to ECMA-376 ST_Te",
-            "xtAnchoringType 't'.",
-        ),
-        default=None,
-    )
-    MIDDLE: Optional[str] = Field(
-        description=(
-            "An alignment that aligns the content to the middle of the content holder. Corresponds to ECMA-376 ST",
-            "_TextAnchoringType 'ctr'.",
-        ),
-        default=None,
-    )
-    BOTTOM: Optional[str] = Field(
-        description=(
-            "An alignment that aligns the content to the bottom of the content holder. Corresponds to ECMA-376 ST",
-            "_TextAnchoringType 'b'.",
-        ),
-        default=None,
-    )
+    TOP = "TOP"  # An alignment that aligns the content to the top of the content holder. Corresponds to ECMA-376 ST_TextAnchoringType 't'.
+    MIDDLE = "MIDDLE"  # An alignment that aligns the content to the middle of the content holder. Corresponds to ECMA-376 ST_TextAnchoringType 'ctr'.
+    BOTTOM = "BOTTOM"  # An alignment that aligns the content to the bottom of the content holder. Corresponds to ECMA-376 ST_TextAnchoringType 'b'.
 
 
-class ContentDirection(BaseModel):
+class ContentDirection(str, Enum):
     """
     The directions content can flow in.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#contentdirection
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
+    CONTENT_DIRECTION_UNSPECIFIED = (
+        "CONTENT_DIRECTION_UNSPECIFIED"  # The content direction is unspecified.
     )
-
-    CONTENT_DIRECTION_UNSPECIFIED: Optional[str] = Field(
-        description="The content direction is unspecified.",
-        default=None,
-    )
-    LEFT_TO_RIGHT: Optional[str] = Field(
-        description="The content goes from left to right.",
-        default=None,
-    )
-    RIGHT_TO_LEFT: Optional[str] = Field(
-        description="The content goes from right to left.",
-        default=None,
-    )
+    LEFT_TO_RIGHT = "LEFT_TO_RIGHT"  # The content goes from left to right.
+    RIGHT_TO_LEFT = "RIGHT_TO_LEFT"  # The content goes from right to left.
 
 
 class CropProperties(BaseModel):
@@ -394,36 +286,18 @@ class CropPropertiesSuggestionState(BaseModel):
     )
 
 
-class DashStyle(BaseModel):
+class DashStyle(str, Enum):
     """
     The kinds of dashes with which linear geometry can be rendered. These values are based on the "ST_PresetLineDashVal" simple type described in section 20.1.10.49 of "Office Open XML File Formats - Fundamentals and Markup Language Reference", part 1 of ECMA-376 5th edition.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#dashstyle
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
+    DASH_STYLE_UNSPECIFIED = "DASH_STYLE_UNSPECIFIED"  # Unspecified dash style.
+    SOLID = "SOLID"  # Solid line. Corresponds to ECMA-376 ST_PresetLineDashVal value 'solid'. This is the default dash style.
+    DOT = (
+        "DOT"  # Dotted line. Corresponds to ECMA-376 ST_PresetLineDashVal value 'dot'.
     )
-
-    DASH_STYLE_UNSPECIFIED: Optional[str] = Field(
-        description="Unspecified dash style.",
-        default=None,
-    )
-    SOLID: Optional[str] = Field(
-        description=(
-            "Solid line. Corresponds to ECMA-376 ST_PresetLineDashVal value 'solid'. This is the default dash sty",
-            "le.",
-        ),
-        default=None,
-    )
-    DOT: Optional[str] = Field(
-        description="Dotted line. Corresponds to ECMA-376 ST_PresetLineDashVal value 'dot'.",
-        default=None,
-    )
-    DASH: Optional[str] = Field(
-        description="Dashed line. Corresponds to ECMA-376 ST_PresetLineDashVal value 'dash'.",
-        default=None,
-    )
+    DASH = "DASH"  # Dashed line. Corresponds to ECMA-376 ST_PresetLineDashVal value 'dash'.
 
 
 class EmbeddedDrawingProperties(BaseModel):
@@ -761,45 +635,23 @@ class PersonProperties(BaseModel):
     )
 
 
-class PositionedObjectLayout(BaseModel):
+class PositionedObjectLayout(str, Enum):
     """
     The possible layouts of a [PositionedObject][google.aps.docs.v1.PositionedObject].
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#positionedobjectlayout
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
+    POSITIONED_OBJECT_LAYOUT_UNSPECIFIED = (
+        "POSITIONED_OBJECT_LAYOUT_UNSPECIFIED"  # The layout is unspecified.
     )
-
-    POSITIONED_OBJECT_LAYOUT_UNSPECIFIED: Optional[str] = Field(
-        description="The layout is unspecified.",
-        default=None,
+    WRAP_TEXT = "WRAP_TEXT"  # The text wraps around the positioned object.
+    BREAK_LEFT = "BREAK_LEFT"  # Breaks text such that the positioned object is on the left and text is on the right.
+    BREAK_RIGHT = "BREAK_RIGHT"  # Breaks text such that the positioned object is on the right and text is on the left.
+    BREAK_LEFT_RIGHT = "BREAK_LEFT_RIGHT"  # Breaks text such that there's no text on the left or right of the positioned object.
+    IN_FRONT_OF_TEXT = (
+        "IN_FRONT_OF_TEXT"  # The positioned object is in front of the text.
     )
-    WRAP_TEXT: Optional[str] = Field(
-        description="The text wraps around the positioned object.",
-        default=None,
-    )
-    BREAK_LEFT: Optional[str] = Field(
-        description="Breaks text such that the positioned object is on the left and text is on the right.",
-        default=None,
-    )
-    BREAK_RIGHT: Optional[str] = Field(
-        description="Breaks text such that the positioned object is on the right and text is on the left.",
-        default=None,
-    )
-    BREAK_LEFT_RIGHT: Optional[str] = Field(
-        description="Breaks text such that there's no text on the left or right of the positioned object.",
-        default=None,
-    )
-    IN_FRONT_OF_TEXT: Optional[str] = Field(
-        description="The positioned object is in front of the text.",
-        default=None,
-    )
-    BEHIND_TEXT: Optional[str] = Field(
-        description="The positioned object is behind the text.",
-        default=None,
-    )
+    BEHIND_TEXT = "BEHIND_TEXT"  # The positioned object is behind the text.
 
 
 class PositionedObjectPositioningSuggestionState(BaseModel):
@@ -827,31 +679,14 @@ class PositionedObjectPositioningSuggestionState(BaseModel):
     )
 
 
-class PropertyState(BaseModel):
+class PropertyState(str, Enum):
     """
     The possible states of a property.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#propertystate
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    RENDERED: Optional[str] = Field(
-        description=(
-            "If a property's state is RENDERED, then the element has the corresponding property when rendered in ",
-            "the document. This is the default value.",
-        ),
-        default=None,
-    )
-    NOT_RENDERED: Optional[str] = Field(
-        description=(
-            "If a property's state is NOT_RENDERED, then the element does not have the corresponding property whe",
-            "n rendered in the document.",
-        ),
-        default=None,
-    )
+    RENDERED = "RENDERED"  # If a property's state is RENDERED, then the element has the corresponding property when rendered in the document. This is the default value.
+    NOT_RENDERED = "NOT_RENDERED"  # If a property's state is NOT_RENDERED, then the element does not have the corresponding property when rendered in the document.
 
 
 class Range(BaseModel):
@@ -1033,73 +868,31 @@ class SizeSuggestionState(BaseModel):
     )
 
 
-class SpacingMode(BaseModel):
+class SpacingMode(str, Enum):
     """
     The different modes for paragraph spacing.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#spacingmode
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
+    SPACING_MODE_UNSPECIFIED = (
+        "SPACING_MODE_UNSPECIFIED"  # The spacing mode is inherited from the parent.
     )
-
-    SPACING_MODE_UNSPECIFIED: Optional[str] = Field(
-        description="The spacing mode is inherited from the parent.",
-        default=None,
-    )
-    NEVER_COLLAPSE: Optional[str] = Field(
-        description="Paragraph spacing is always rendered.",
-        default=None,
-    )
-    COLLAPSE_LISTS: Optional[str] = Field(
-        description="Paragraph spacing is skipped between list elements.",
-        default=None,
+    NEVER_COLLAPSE = "NEVER_COLLAPSE"  # Paragraph spacing is always rendered.
+    COLLAPSE_LISTS = (
+        "COLLAPSE_LISTS"  # Paragraph spacing is skipped between list elements.
     )
 
 
-class SuggestionsViewMode(BaseModel):
+class SuggestionsViewMode(str, Enum):
     """
     The suggestions view mode applied to the document that indicates how suggested changes are represented. It provides options for reading the document with all suggestions inline, accepted, or rejected.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#suggestionsviewmode
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    DEFAULT_FOR_CURRENT_ACCESS: Optional[str] = Field(
-        description=(
-            "The SuggestionsViewMode applied to the returned document depends on the user's current access level.",
-            " If the user only has view access, PREVIEW_WITHOUT_SUGGESTIONS is applied. Otherwise, SUGGESTIONS_IN",
-            "LINE is applied. This is the default suggestions view mode.",
-        ),
-        default=None,
-    )
-    SUGGESTIONS_INLINE: Optional[str] = Field(
-        description=(
-            "The returned document has suggestions inline. Suggested changes will be differentiated from base con",
-            "tent within the document.Requests to retrieve a document using this mode will return a 403 error if ",
-            "the user does not have permission to view suggested changes.",
-        ),
-        default=None,
-    )
-    PREVIEW_SUGGESTIONS_ACCEPTED: Optional[str] = Field(
-        description=(
-            "The returned document is a preview with all suggested changes accepted.Requests to retrieve a docume",
-            "nt using this mode will return a 403 error if the user does not have permission to view suggested ch",
-            "anges.",
-        ),
-        default=None,
-    )
-    PREVIEW_WITHOUT_SUGGESTIONS: Optional[str] = Field(
-        description=(
-            "The returned document is a preview with all suggested changes rejected if there are any suggestions ",
-            "in the document.",
-        ),
-        default=None,
-    )
+    DEFAULT_FOR_CURRENT_ACCESS = "DEFAULT_FOR_CURRENT_ACCESS"  # The SuggestionsViewMode applied to the returned document depends on the user's current access level. If the user only has view access, PREVIEW_WITHOUT_SUGGESTIONS is applied. Otherwise, SUGGESTIONS_INLINE is applied. This is the default suggestions view mode.
+    SUGGESTIONS_INLINE = "SUGGESTIONS_INLINE"  # The returned document has suggestions inline. Suggested changes will be differentiated from base content within the document.Requests to retrieve a document using this mode will return a 403 error if the user does not have permission to view suggested changes.
+    PREVIEW_SUGGESTIONS_ACCEPTED = "PREVIEW_SUGGESTIONS_ACCEPTED"  # The returned document is a preview with all suggested changes accepted.Requests to retrieve a document using this mode will return a 403 error if the user does not have permission to view suggested changes.
+    PREVIEW_WITHOUT_SUGGESTIONS = "PREVIEW_WITHOUT_SUGGESTIONS"  # The returned document is a preview with all suggested changes rejected if there are any suggestions in the document.
 
 
 class TabProperties(BaseModel):
@@ -1138,33 +931,18 @@ class TabProperties(BaseModel):
     )
 
 
-class TabStopAlignment(BaseModel):
+class TabStopAlignment(str, Enum):
     """
     The alignment of the tab stop.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#tabstopalignment
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
+    TAB_STOP_ALIGNMENT_UNSPECIFIED = (
+        "TAB_STOP_ALIGNMENT_UNSPECIFIED"  # The tab stop alignment is unspecified.
     )
-
-    TAB_STOP_ALIGNMENT_UNSPECIFIED: Optional[str] = Field(
-        description="The tab stop alignment is unspecified.",
-        default=None,
-    )
-    START: Optional[str] = Field(
-        description="The tab stop is aligned to the start of the line. This is the default.",
-        default=None,
-    )
-    CENTER: Optional[str] = Field(
-        description="The tab stop is aligned to the center of the line.",
-        default=None,
-    )
-    END: Optional[str] = Field(
-        description="The tab stop is aligned to the end of the line.",
-        default=None,
-    )
+    START = "START"  # The tab stop is aligned to the start of the line. This is the default.
+    CENTER = "CENTER"  # The tab stop is aligned to the center of the line.
+    END = "END"  # The tab stop is aligned to the end of the line.
 
 
 class TableCellStyleSuggestionState(BaseModel):
@@ -1302,25 +1080,14 @@ class TextStyleSuggestionState(BaseModel):
     )
 
 
-class Unit(BaseModel):
+class Unit(str, Enum):
     """
     Units of measurement.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#unit
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    UNIT_UNSPECIFIED: Optional[str] = Field(
-        description="The units are unknown.",
-        default=None,
-    )
-    PT: Optional[str] = Field(
-        description="A point, 1/72 of an inch.",
-        default=None,
-    )
+    UNIT_UNSPECIFIED = "UNIT_UNSPECIFIED"  # The units are unknown.
+    PT = "PT"  # A point, 1/72 of an inch.
 
 
 class WeightedFontFamily(BaseModel):
@@ -1395,25 +1162,14 @@ class Color(BaseModel):
     )
 
 
-class Dimension(BaseModel):
+class Dimension(str, Enum):
     """
     A magnitude in a single direction in the specified units.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#dimension
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    magnitude: Optional[float] = Field(
-        description="The magnitude.",
-        default=None,
-    )
-    unit: Optional[Unit] = Field(
-        description="The units for magnitude.",
-        default=None,
-    )
+    MAGNITUDE = "magnitude"  # The magnitude.
+    UNIT = "unit"  # The units for magnitude.
 
 
 class DocumentStyleSuggestionState(BaseModel):
@@ -1655,33 +1411,16 @@ class OptionalColor(BaseModel):
     )
 
 
-class ParagraphBorder(BaseModel):
+class ParagraphBorder(str, Enum):
     """
     A border around a paragraph.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#paragraphborder
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    color: Optional[OptionalColor] = Field(
-        description="The color of the border.",
-        default=None,
-    )
-    width: Optional[Dimension] = Field(
-        description="The width of the border.",
-        default=None,
-    )
-    padding: Optional[Dimension] = Field(
-        description="The padding of the border.",
-        default=None,
-    )
-    dash_style: Optional[DashStyle] = Field(
-        description="The dash style of the border.",
-        default=None,
-    )
+    COLOR = "color"  # The color of the border.
+    WIDTH = "width"  # The width of the border.
+    PADDING = "padding"  # The padding of the border.
+    DASH_STYLE = "dash_style"  # The dash style of the border.
 
 
 class ParagraphStyleSuggestionState(BaseModel):
@@ -1781,37 +1520,15 @@ class ParagraphStyleSuggestionState(BaseModel):
     )
 
 
-class PositionedObjectPositioning(BaseModel):
+class PositionedObjectPositioning(str, Enum):
     """
     The positioning of a PositionedObject. The positioned object is positioned relative to the beginning of the Paragraph it's tethered to.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#positionedobjectpositioning
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    layout: Optional[PositionedObjectLayout] = Field(
-        description="The layout of this positioned object.",
-        default=None,
-    )
-    left_offset: Optional[Dimension] = Field(
-        description=(
-            "The offset of the left edge of the positioned object relative to the beginning of the Paragraph it's",
-            " tethered to. The exact positioning of the object can depend on other content in the document and th",
-            "e document's styling.",
-        ),
-        default=None,
-    )
-    top_offset: Optional[Dimension] = Field(
-        description=(
-            "The offset of the top edge of the positioned object relative to the beginning of the Paragraph it's ",
-            "tethered to. The exact positioning of the object can depend on other content in the document and the",
-            " document's styling.",
-        ),
-        default=None,
-    )
+    LAYOUT = "layout"  # The layout of this positioned object.
+    LEFT_OFFSET = "left_offset"  # The offset of the left edge of the positioned object relative to the beginning of the Paragraph it's tethered to. The exact positioning of the object can depend on other content in the document and the document's styling.
+    TOP_OFFSET = "top_offset"  # The offset of the top edge of the positioned object relative to the beginning of the Paragraph it's tethered to. The exact positioning of the object can depend on other content in the document and the document's styling.
 
 
 class SectionColumnProperties(BaseModel):
@@ -1835,183 +1552,31 @@ class SectionColumnProperties(BaseModel):
     )
 
 
-class SectionStyle(BaseModel):
+class SectionStyle(str, Enum):
     """
     The styling that applies to a section.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#sectionstyle
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    column_properties: Optional[SectionColumnProperties] = Field(
-        description=(
-            "The section's columns properties. If empty, the section contains one column with the default propert",
-            "ies in the Docs editor. A section can be updated to have no more than 3 columns. When updating this ",
-            "property, setting a concrete value is required. Unsetting this property will result in a 400 bad req",
-            "uest error.",
-        ),
-        default=None,
-    )
-    column_separator_style: Optional[ColumnSeparatorStyle] = Field(
-        description=(
-            "The style of column separators. This style can be set even when there's one column in the section. W",
-            "hen updating this property, setting a concrete value is required. Unsetting this property results in",
-            " a 400 bad request error.",
-        ),
-        default=None,
-    )
-    content_direction: Optional[ContentDirection] = Field(
-        description=(
-            "The content direction of this section. If unset, the value defaults to LEFT_TO_RIGHT. When updating ",
-            "this property, setting a concrete value is required. Unsetting this property results in a 400 bad re",
-            "quest error.",
-        ),
-        default=None,
-    )
-    margin_top: Optional[Dimension] = Field(
-        description=(
-            "The top page margin of the section. If unset, the value defaults to marginTop from DocumentStyle. Wh",
-            "en updating this property, setting a concrete value is required. Unsetting this property results in ",
-            "a 400 bad request error.",
-        ),
-        default=None,
-    )
-    margin_bottom: Optional[Dimension] = Field(
-        description=(
-            "The bottom page margin of the section. If unset, the value defaults to marginBottom from DocumentSty",
-            "le. When updating this property, setting a concrete value is required. Unsetting this property resul",
-            "ts in a 400 bad request error.",
-        ),
-        default=None,
-    )
-    margin_right: Optional[Dimension] = Field(
-        description=(
-            "The right page margin of the section. If unset, the value defaults to marginRight from DocumentStyle",
-            ". Updating the right margin causes columns in this section to resize. Since the margin affects colum",
-            "n width, it's applied before column properties. When updating this property, setting a concrete valu",
-            "e is required. Unsetting this property results in a 400 bad request error.",
-        ),
-        default=None,
-    )
-    margin_left: Optional[Dimension] = Field(
-        description=(
-            "The left page margin of the section. If unset, the value defaults to marginLeft from DocumentStyle. ",
-            "Updating the left margin causes columns in this section to resize. Since the margin affects column w",
-            "idth, it's applied before column properties. When updating this property, setting a concrete value i",
-            "s required. Unsetting this property results in a 400 bad request error.",
-        ),
-        default=None,
-    )
-    margin_header: Optional[Dimension] = Field(
-        description=(
-            "The header margin of the section. If unset, the value defaults to marginHeader from DocumentStyle. I",
-            "f updated, useCustomHeaderFooterMargins is set to true on DocumentStyle. The value of useCustomHeade",
-            "rFooterMargins on DocumentStyle indicates if a header margin is being respected for this section. Wh",
-            "en updating this property, setting a concrete value is required. Unsetting this property results in ",
-            "a 400 bad request error.",
-        ),
-        default=None,
-    )
-    margin_footer: Optional[Dimension] = Field(
-        description=(
-            "The footer margin of the section. If unset, the value defaults to marginFooter from DocumentStyle. I",
-            "f updated, useCustomHeaderFooterMargins is set to true on DocumentStyle. The value of useCustomHeade",
-            "rFooterMargins on DocumentStyle indicates if a footer margin is being respected for this section Whe",
-            "n updating this property, setting a concrete value is required. Unsetting this property results in a",
-            " 400 bad request error.",
-        ),
-        default=None,
-    )
-    section_type: Optional[SectionType] = Field(
-        description="Output only. The type of section.",
-        default=None,
-    )
-    default_header_id: Optional[str] = Field(
-        description=(
-            "The ID of the default header. If unset, the value inherits from the previous SectionBreak's SectionS",
-            "tyle. If the value is unset in the first SectionBreak, it inherits from DocumentStyle's defaultHeade",
-            "rId. This property is read-only.",
-        ),
-        default=None,
-    )
-    default_footer_id: Optional[str] = Field(
-        description=(
-            "The ID of the default footer. If unset, the value inherits from the previous SectionBreak's SectionS",
-            "tyle. If the value is unset in the first SectionBreak, it inherits from DocumentStyle's defaultFoote",
-            "rId. This property is read-only.",
-        ),
-        default=None,
-    )
-    first_page_header_id: Optional[str] = Field(
-        description=(
-            "The ID of the header used only for the first page of the section. If useFirstPageHeaderFooter is tru",
-            "e, this value is used for the header on the first page of the section. If it's false, the header on ",
-            "the first page of the section uses the defaultHeaderId. If unset, the value inherits from the previo",
-            "us SectionBreak's SectionStyle. If the value is unset in the first SectionBreak, it inherits from Do",
-            "cumentStyle's firstPageHeaderId. This property is read-only.",
-        ),
-        default=None,
-    )
-    first_page_footer_id: Optional[str] = Field(
-        description=(
-            "The ID of the footer used only for the first page of the section. If useFirstPageHeaderFooter is tru",
-            "e, this value is used for the footer on the first page of the section. If it's false, the footer on ",
-            "the first page of the section uses the defaultFooterId. If unset, the value inherits from the previo",
-            "us SectionBreak's SectionStyle. If the value is unset in the first SectionBreak, it inherits from Do",
-            "cumentStyle's firstPageFooterId. This property is read-only.",
-        ),
-        default=None,
-    )
-    even_page_header_id: Optional[str] = Field(
-        description=(
-            "The ID of the header used only for even pages. If the value of DocumentStyle's useEvenPageHeaderFoot",
-            "er is true, this value is used for the headers on even pages in the section. If it is false, the hea",
-            "ders on even pages use the defaultHeaderId. If unset, the value inherits from the previous SectionBr",
-            "eak's SectionStyle. If the value is unset in the first SectionBreak, it inherits from DocumentStyle'",
-            "s evenPageHeaderId. This property is read-only.",
-        ),
-        default=None,
-    )
-    even_page_footer_id: Optional[str] = Field(
-        description=(
-            "The ID of the footer used only for even pages. If the value of DocumentStyle's useEvenPageHeaderFoot",
-            "er is true, this value is used for the footers on even pages in the section. If it is false, the foo",
-            "ters on even pages use the defaultFooterId. If unset, the value inherits from the previous SectionBr",
-            "eak's SectionStyle. If the value is unset in the first SectionBreak, it inherits from DocumentStyle'",
-            "s evenPageFooterId. This property is read-only.",
-        ),
-        default=None,
-    )
-    use_first_page_header_footer: Optional[bool] = Field(
-        description=(
-            "Indicates whether to use the first page header / footer IDs for the first page of the section. If un",
-            "set, it inherits from DocumentStyle's useFirstPageHeaderFooter for the first section. If the value i",
-            "s unset for subsequent sectors, it should be interpreted as false. When updating this property, sett",
-            "ing a concrete value is required. Unsetting this property results in a 400 bad request error.",
-        ),
-        default=None,
-    )
-    page_number_start: Optional[int] = Field(
-        description=(
-            "The page number from which to start counting the number of pages for this section. If unset, page nu",
-            "mbering continues from the previous section. If the value is unset in the first SectionBreak, refer ",
-            "to DocumentStyle's pageNumberStart. When updating this property, setting a concrete value is require",
-            "d. Unsetting this property results in a 400 bad request error.",
-        ),
-        default=None,
-    )
-    flip_page_orientation: Optional[bool] = Field(
-        description=(
-            "Optional. Indicates whether to flip the dimensions of DocumentStyle's pageSize for this section, whi",
-            "ch allows changing the page orientation between portrait and landscape. If unset, the value inherits",
-            " from DocumentStyle's flipPageOrientation. When updating this property, setting a concrete value is ",
-            "required. Unsetting this property results in a 400 bad request error.",
-        ),
-        default=None,
-    )
+    COLUMN_PROPERTIES = "column_properties"  # The section's columns properties. If empty, the section contains one column with the default properties in the Docs editor. A section can be updated to have no more than 3 columns. When updating this property, setting a concrete value is required. Unsetting this property will result in a 400 bad request error.
+    COLUMN_SEPARATOR_STYLE = "column_separator_style"  # The style of column separators. This style can be set even when there's one column in the section. When updating this property, setting a concrete value is required. Unsetting this property results in a 400 bad request error.
+    CONTENT_DIRECTION = "content_direction"  # The content direction of this section. If unset, the value defaults to LEFT_TO_RIGHT. When updating this property, setting a concrete value is required. Unsetting this property results in a 400 bad request error.
+    MARGIN_TOP = "margin_top"  # The top page margin of the section. If unset, the value defaults to marginTop from DocumentStyle. When updating this property, setting a concrete value is required. Unsetting this property results in a 400 bad request error.
+    MARGIN_BOTTOM = "margin_bottom"  # The bottom page margin of the section. If unset, the value defaults to marginBottom from DocumentStyle. When updating this property, setting a concrete value is required. Unsetting this property results in a 400 bad request error.
+    MARGIN_RIGHT = "margin_right"  # The right page margin of the section. If unset, the value defaults to marginRight from DocumentStyle. Updating the right margin causes columns in this section to resize. Since the margin affects column width, it's applied before column properties. When updating this property, setting a concrete value is required. Unsetting this property results in a 400 bad request error.
+    MARGIN_LEFT = "margin_left"  # The left page margin of the section. If unset, the value defaults to marginLeft from DocumentStyle. Updating the left margin causes columns in this section to resize. Since the margin affects column width, it's applied before column properties. When updating this property, setting a concrete value is required. Unsetting this property results in a 400 bad request error.
+    MARGIN_HEADER = "margin_header"  # The header margin of the section. If unset, the value defaults to marginHeader from DocumentStyle. If updated, useCustomHeaderFooterMargins is set to true on DocumentStyle. The value of useCustomHeaderFooterMargins on DocumentStyle indicates if a header margin is being respected for this section. When updating this property, setting a concrete value is required. Unsetting this property results in a 400 bad request error.
+    MARGIN_FOOTER = "margin_footer"  # The footer margin of the section. If unset, the value defaults to marginFooter from DocumentStyle. If updated, useCustomHeaderFooterMargins is set to true on DocumentStyle. The value of useCustomHeaderFooterMargins on DocumentStyle indicates if a footer margin is being respected for this section When updating this property, setting a concrete value is required. Unsetting this property results in a 400 bad request error.
+    SECTION_TYPE = "section_type"  # Output only. The type of section.
+    DEFAULT_HEADER_ID = "default_header_id"  # The ID of the default header. If unset, the value inherits from the previous SectionBreak's SectionStyle. If the value is unset in the first SectionBreak, it inherits from DocumentStyle's defaultHeaderId. This property is read-only.
+    DEFAULT_FOOTER_ID = "default_footer_id"  # The ID of the default footer. If unset, the value inherits from the previous SectionBreak's SectionStyle. If the value is unset in the first SectionBreak, it inherits from DocumentStyle's defaultFooterId. This property is read-only.
+    FIRST_PAGE_HEADER_ID = "first_page_header_id"  # The ID of the header used only for the first page of the section. If useFirstPageHeaderFooter is true, this value is used for the header on the first page of the section. If it's false, the header on the first page of the section uses the defaultHeaderId. If unset, the value inherits from the previous SectionBreak's SectionStyle. If the value is unset in the first SectionBreak, it inherits from DocumentStyle's firstPageHeaderId. This property is read-only.
+    FIRST_PAGE_FOOTER_ID = "first_page_footer_id"  # The ID of the footer used only for the first page of the section. If useFirstPageHeaderFooter is true, this value is used for the footer on the first page of the section. If it's false, the footer on the first page of the section uses the defaultFooterId. If unset, the value inherits from the previous SectionBreak's SectionStyle. If the value is unset in the first SectionBreak, it inherits from DocumentStyle's firstPageFooterId. This property is read-only.
+    EVEN_PAGE_HEADER_ID = "even_page_header_id"  # The ID of the header used only for even pages. If the value of DocumentStyle's useEvenPageHeaderFooter is true, this value is used for the headers on even pages in the section. If it is false, the headers on even pages use the defaultHeaderId. If unset, the value inherits from the previous SectionBreak's SectionStyle. If the value is unset in the first SectionBreak, it inherits from DocumentStyle's evenPageHeaderId. This property is read-only.
+    EVEN_PAGE_FOOTER_ID = "even_page_footer_id"  # The ID of the footer used only for even pages. If the value of DocumentStyle's useEvenPageHeaderFooter is true, this value is used for the footers on even pages in the section. If it is false, the footers on even pages use the defaultFooterId. If unset, the value inherits from the previous SectionBreak's SectionStyle. If the value is unset in the first SectionBreak, it inherits from DocumentStyle's evenPageFooterId. This property is read-only.
+    USE_FIRST_PAGE_HEADER_FOOTER = "use_first_page_header_footer"  # Indicates whether to use the first page header / footer IDs for the first page of the section. If unset, it inherits from DocumentStyle's useFirstPageHeaderFooter for the first section. If the value is unset for subsequent sectors, it should be interpreted as false. When updating this property, setting a concrete value is required. Unsetting this property results in a 400 bad request error.
+    PAGE_NUMBER_START = "page_number_start"  # The page number from which to start counting the number of pages for this section. If unset, page numbering continues from the previous section. If the value is unset in the first SectionBreak, refer to DocumentStyle's pageNumberStart. When updating this property, setting a concrete value is required. Unsetting this property results in a 400 bad request error.
+    FLIP_PAGE_ORIENTATION = "flip_page_orientation"  # Optional. Indicates whether to flip the dimensions of DocumentStyle's pageSize for this section, which allows changing the page orientation between portrait and landscape. If unset, the value inherits from DocumentStyle's flipPageOrientation. When updating this property, setting a concrete value is required. Unsetting this property results in a 400 bad request error.
 
 
 class Shading(BaseModel):
@@ -2052,135 +1617,57 @@ class Size(BaseModel):
     )
 
 
-class TabStop(BaseModel):
+class TabStop(str, Enum):
     """
     A tab stop within a paragraph.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#tabstop
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    offset: Optional[Dimension] = Field(
-        description="The offset between this tab stop and the start margin.",
-        default=None,
-    )
-    alignment: Optional[TabStopAlignment] = Field(
-        description="The alignment of this tab stop. If unset, the value defaults to START.",
-        default=None,
-    )
+    OFFSET = "offset"  # The offset between this tab stop and the start margin.
+    ALIGNMENT = "alignment"  # The alignment of this tab stop. If unset, the value defaults to START.
 
 
-class TableCellBorder(BaseModel):
+class TableCellBorder(str, Enum):
     """
     A border around a table cell.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#tablecellborder
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    color: Optional[OptionalColor] = Field(
-        description="The color of the border. This color cannot be transparent.",
-        default=None,
-    )
-    width: Optional[Dimension] = Field(
-        description="The width of the border.",
-        default=None,
-    )
-    dash_style: Optional[DashStyle] = Field(
-        description="The dash style of the border.",
-        default=None,
-    )
+    COLOR = "color"  # The color of the border. This color cannot be transparent.
+    WIDTH = "width"  # The width of the border.
+    DASH_STYLE = "dash_style"  # The dash style of the border.
 
 
-class TableCellStyle(BaseModel):
+class TableCellStyle(str, Enum):
     """
     The style of a TableCell.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#tablecellstyle
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
+    ROW_SPAN = "row_span"  # The row span of the cell. This property is read-only.
+    COLUMN_SPAN = (
+        "column_span"  # The column span of the cell. This property is read-only.
     )
-
-    row_span: Optional[int] = Field(
-        description="The row span of the cell. This property is read-only.",
-        default=None,
-    )
-    column_span: Optional[int] = Field(
-        description="The column span of the cell. This property is read-only.",
-        default=None,
-    )
-    background_color: Optional[OptionalColor] = Field(
-        description="The background color of the cell.",
-        default=None,
-    )
-    border_left: Optional[TableCellBorder] = Field(
-        description="The left border of the cell.",
-        default=None,
-    )
-    border_right: Optional[TableCellBorder] = Field(
-        description="The right border of the cell.",
-        default=None,
-    )
-    border_top: Optional[TableCellBorder] = Field(
-        description="The top border of the cell.",
-        default=None,
-    )
-    border_bottom: Optional[TableCellBorder] = Field(
-        description="The bottom border of the cell.",
-        default=None,
-    )
-    padding_left: Optional[Dimension] = Field(
-        description="The left padding of the cell.",
-        default=None,
-    )
-    padding_right: Optional[Dimension] = Field(
-        description="The right padding of the cell.",
-        default=None,
-    )
-    padding_top: Optional[Dimension] = Field(
-        description="The top padding of the cell.",
-        default=None,
-    )
-    padding_bottom: Optional[Dimension] = Field(
-        description="The bottom padding of the cell.",
-        default=None,
-    )
-    content_alignment: Optional[ContentAlignment] = Field(
-        description=(
-            "The alignment of the content in the table cell. The default alignment matches the alignment for newl",
-            "y created table cells in the Docs editor.",
-        ),
-        default=None,
-    )
+    BACKGROUND_COLOR = "background_color"  # The background color of the cell.
+    BORDER_LEFT = "border_left"  # The left border of the cell.
+    BORDER_RIGHT = "border_right"  # The right border of the cell.
+    BORDER_TOP = "border_top"  # The top border of the cell.
+    BORDER_BOTTOM = "border_bottom"  # The bottom border of the cell.
+    PADDING_LEFT = "padding_left"  # The left padding of the cell.
+    PADDING_RIGHT = "padding_right"  # The right padding of the cell.
+    PADDING_TOP = "padding_top"  # The top padding of the cell.
+    PADDING_BOTTOM = "padding_bottom"  # The bottom padding of the cell.
+    CONTENT_ALIGNMENT = "content_alignment"  # The alignment of the content in the table cell. The default alignment matches the alignment for newly created table cells in the Docs editor.
 
 
-class TableColumnProperties(BaseModel):
+class TableColumnProperties(str, Enum):
     """
     The properties of a column in a table.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#tablecolumnproperties
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    width_type: Optional[WidthType] = Field(
-        description="The width type of the column.",
-        default=None,
-    )
-    width: Optional[Dimension] = Field(
-        description="The width of the column. Set when the column's widthType is FIXED_WIDTH.",
-        default=None,
-    )
+    WIDTH_TYPE = "width_type"  # The width type of the column.
+    WIDTH = "width"  # The width of the column. Set when the column's widthType is FIXED_WIDTH.
 
 
 class TableRowStyle(BaseModel):
@@ -2231,80 +1718,23 @@ class TableStyle(BaseModel):
     )
 
 
-class TextStyle(BaseModel):
+class TextStyle(str, Enum):
     """
     Represents the styling that can be applied to text.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#textstyle
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    bold: Optional[bool] = Field(
-        description="Whether or not the text is rendered as bold.",
-        default=None,
-    )
-    italic: Optional[bool] = Field(
-        description="Whether or not the text is italicized.",
-        default=None,
-    )
-    underline: Optional[bool] = Field(
-        description="Whether or not the text is underlined.",
-        default=None,
-    )
-    strikethrough: Optional[bool] = Field(
-        description="Whether or not the text is struck through.",
-        default=None,
-    )
-    small_caps: Optional[bool] = Field(
-        description="Whether or not the text is in small capital letters.",
-        default=None,
-    )
-    background_color: Optional[OptionalColor] = Field(
-        description=(
-            "The background color of the text. If set, the color is either an RGB color or transparent, depending",
-            " on the color field.",
-        ),
-        default=None,
-    )
-    foreground_color: Optional[OptionalColor] = Field(
-        description=(
-            "The foreground color of the text. If set, the color is either an RGB color or transparent, depending",
-            " on the color field.",
-        ),
-        default=None,
-    )
-    font_size: Optional[Dimension] = Field(
-        description="The size of the text's font.",
-        default=None,
-    )
-    weighted_font_family: Optional[WeightedFontFamily] = Field(
-        description=(
-            "The font family and rendered weight of the text. If an update request specifies values for both weig",
-            "htedFontFamily and bold, the weightedFontFamily is applied first, then bold. If weightedFontFamily#w",
-            "eight is not set, it defaults to 400. If weightedFontFamily is set, then weightedFontFamily#fontFami",
-            "ly must also be set with a non-empty value. Otherwise, a 400 bad request error is returned.",
-        ),
-        default=None,
-    )
-    baseline_offset: Optional[BaselineOffset] = Field(
-        description=(
-            "The text's vertical offset from its normal position. Text with SUPERSCRIPT or SUBSCRIPT baseline off",
-            "sets is automatically rendered in a smaller font size, computed based on the fontSize field. Changes",
-            " in this field don't affect the fontSize.",
-        ),
-        default=None,
-    )
-    link: Optional[Link] = Field(
-        description=(
-            "The hyperlink destination of the text. If unset, there's no link. Links are not inherited from paren",
-            "t text. Changing the link in an update request causes some other changes to the text style of the ra",
-            "nge:",
-        ),
-        default=None,
-    )
+    BOLD = "bold"  # Whether or not the text is rendered as bold.
+    ITALIC = "italic"  # Whether or not the text is italicized.
+    UNDERLINE = "underline"  # Whether or not the text is underlined.
+    STRIKETHROUGH = "strikethrough"  # Whether or not the text is struck through.
+    SMALL_CAPS = "small_caps"  # Whether or not the text is in small capital letters.
+    BACKGROUND_COLOR = "background_color"  # The background color of the text. If set, the color is either an RGB color or transparent, depending on the color field.
+    FOREGROUND_COLOR = "foreground_color"  # The foreground color of the text. If set, the color is either an RGB color or transparent, depending on the color field.
+    FONT_SIZE = "font_size"  # The size of the text's font.
+    WEIGHTED_FONT_FAMILY = "weighted_font_family"  # The font family and rendered weight of the text. If an update request specifies values for both weightedFontFamily and bold, the weightedFontFamily is applied first, then bold. If weightedFontFamily#weight is not set, it defaults to 400. If weightedFontFamily is set, then weightedFontFamily#fontFamily must also be set with a non-empty value. Otherwise, a 400 bad request error is returned.
+    BASELINE_OFFSET = "baseline_offset"  # The text's vertical offset from its normal position. Text with SUPERSCRIPT or SUBSCRIPT baseline offsets is automatically rendered in a smaller font size, computed based on the fontSize field. Changes in this field don't affect the fontSize.
+    LINK = "link"  # The hyperlink destination of the text. If unset, there's no link. Links are not inherited from parent text. Changing the link in an update request causes some other changes to the text style of the range:
 
 
 class Background(BaseModel):
@@ -2475,33 +1905,16 @@ class DocumentStyle(BaseModel):
     )
 
 
-class EmbeddedObjectBorder(BaseModel):
+class EmbeddedObjectBorder(str, Enum):
     """
     A border around an EmbeddedObject.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#embeddedobjectborder
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    color: Optional[OptionalColor] = Field(
-        description="The color of the border.",
-        default=None,
-    )
-    width: Optional[Dimension] = Field(
-        description="The width of the border.",
-        default=None,
-    )
-    dash_style: Optional[DashStyle] = Field(
-        description="The dash style of the border.",
-        default=None,
-    )
-    property_state: Optional[PropertyState] = Field(
-        description="The property state of the border property.",
-        default=None,
-    )
+    COLOR = "color"  # The color of the border.
+    WIDTH = "width"  # The width of the border.
+    DASH_STYLE = "dash_style"  # The dash style of the border.
+    PROPERTY_STATE = "property_state"  # The property state of the border property.
 
 
 class EmbeddedObjectSuggestionState(BaseModel):
@@ -2614,32 +2027,15 @@ class ListPropertiesSuggestionState(BaseModel):
     )
 
 
-class NamedStyleSuggestionState(BaseModel):
+class NamedStyleSuggestionState(str, Enum):
     """
     A suggestion state of a NamedStyle message.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#namedstylesuggestionstate
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    named_style_type: Optional[NamedStyleType] = Field(
-        description=(
-            "The named style type that this suggestion state corresponds to. This field is provided as a convenie",
-            "nce for matching the NamedStyleSuggestionState with its corresponding NamedStyle.",
-        ),
-        default=None,
-    )
-    text_style_suggestion_state: Optional[TextStyleSuggestionState] = Field(
-        description="A mask that indicates which of the fields in text style have been changed in this suggestion.",
-        default=None,
-    )
-    paragraph_style_suggestion_state: Optional[ParagraphStyleSuggestionState] = Field(
-        description="A mask that indicates which of the fields in paragraph style have been changed in this suggestion.",
-        default=None,
-    )
+    NAMED_STYLE_TYPE = "named_style_type"  # The named style type that this suggestion state corresponds to. This field is provided as a convenience for matching the NamedStyleSuggestionState with its corresponding NamedStyle.
+    TEXT_STYLE_SUGGESTION_STATE = "text_style_suggestion_state"  # A mask that indicates which of the fields in text style have been changed in this suggestion.
+    PARAGRAPH_STYLE_SUGGESTION_STATE = "paragraph_style_suggestion_state"  # A mask that indicates which of the fields in paragraph style have been changed in this suggestion.
 
 
 class NamedStylesSuggestionState(BaseModel):
@@ -2663,245 +2059,50 @@ class NamedStylesSuggestionState(BaseModel):
     )
 
 
-class NestingLevel(BaseModel):
+class NestingLevel(str, Enum):
     """
     Contains properties describing the look and feel of a list bullet at a given level of nesting.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#nestinglevel
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    bullet_alignment: Optional[BulletAlignment] = Field(
-        description="The alignment of the bullet within the space allotted for rendering the bullet.",
-        default=None,
-    )
-    glyph_format: Optional[str] = Field(
-        description=(
-            "The format string used by bullets at this level of nesting. The glyph format contains one or more pl",
-            "aceholders, and these placeholders are replaced with the appropriate values depending on the glyphTy",
-            "pe or glyphSymbol. The placeholders follow the pattern %[nestingLevel]. Furthermore, placeholders ca",
-            "n have prefixes and suffixes. Thus, the glyph format follows the pattern %[nestingLevel]. Note that ",
-            "the prefix and suffix are optional and can be arbitrary strings. For example, the glyph format %0. i",
-            "ndicates that the rendered glyph will replace the placeholder with the corresponding glyph for nesti",
-            "ng level 0 followed by a period as the suffix. So a list with a glyph type of UPPER_ALPHA and glyph ",
-            "format %0. at nesting level 0 will result in a list with rendered glyphs A. B. C. The glyph format c",
-            "an contain placeholders for the current nesting level as well as placeholders for parent nesting lev",
-            "els. For example, a list can have a glyph format of %0. at nesting level 0 and a glyph format of %0.",
-            "%1. at nesting level 1. Assuming both nesting levels have DECIMAL glyph types, this would result in ",
-            "a list with rendered glyphs 1. 2. 2.1. 2.2. 3. For nesting levels that are ordered, the string that ",
-            "replaces a placeholder in the glyph format for a particular paragraph depends on the paragraph's ord",
-            "er within the list.",
-        ),
-        default=None,
-    )
-    indent_first_line: Optional[Dimension] = Field(
-        description="The amount of indentation for the first line of paragraphs at this level of nesting.",
-        default=None,
-    )
-    indent_start: Optional[Dimension] = Field(
-        description=(
-            "The amount of indentation for paragraphs at this level of nesting. Applied to the side that correspo",
-            "nds to the start of the text, based on the paragraph's content direction.",
-        ),
-        default=None,
-    )
-    text_style: Optional[TextStyle] = Field(
-        description="The text style of bullets at this level of nesting.",
-        default=None,
-    )
-    start_number: Optional[int] = Field(
-        description=(
-            "The number of the first list item at this nesting level. A value of 0 is treated as a value of 1 for",
-            " lettered lists and Roman numeral lists. For values of both 0 and 1, lettered and Roman numeral list",
-            "s will begin at a and i respectively. This value is ignored for nesting levels with unordered glyphs",
-            ".",
-        ),
-        default=None,
-    )
-    glyph_type: Optional[GlyphType] = Field(
-        description=(
-            "The type of glyph used by bullets when paragraphs at this level of nesting is ordered. The glyph typ",
-            "e determines the type of glyph used to replace placeholders within the glyphFormat when paragraphs a",
-            "t this level of nesting are ordered. For example, if the nesting level is 0, the glyphFormat is %0. ",
-            "and the glyph type is DECIMAL, then the rendered glyph would replace the placeholder %0 in the glyph",
-            " format with a number corresponding to the list item's order within the list.",
-        ),
-        default=None,
-    )
-    glyph_symbol: Optional[str] = Field(
-        description=(
-            "A custom glyph symbol used by bullets when paragraphs at this level of nesting is unordered. The gly",
-            "ph symbol replaces placeholders within the glyphFormat. For example, if the glyphSymbol is the solid",
-            " circle corresponding to Unicode U+25cf code point and the glyphFormat is %0, the rendered glyph wou",
-            "ld be the solid circle.",
-        ),
-        default=None,
-    )
+    BULLET_ALIGNMENT = "bullet_alignment"  # The alignment of the bullet within the space allotted for rendering the bullet.
+    GLYPH_FORMAT = "glyph_format"  # The format string used by bullets at this level of nesting. The glyph format contains one or more placeholders, and these placeholders are replaced with the appropriate values depending on the glyphType or glyphSymbol. The placeholders follow the pattern %[nestingLevel]. Furthermore, placeholders can have prefixes and suffixes. Thus, the glyph format follows the pattern %[nestingLevel]. Note that the prefix and suffix are optional and can be arbitrary strings. For example, the glyph format %0. indicates that the rendered glyph will replace the placeholder with the corresponding glyph for nesting level 0 followed by a period as the suffix. So a list with a glyph type of UPPER_ALPHA and glyph format %0. at nesting level 0 will result in a list with rendered glyphs A. B. C. The glyph format can contain placeholders for the current nesting level as well as placeholders for parent nesting levels. For example, a list can have a glyph format of %0. at nesting level 0 and a glyph format of %0.%1. at nesting level 1. Assuming both nesting levels have DECIMAL glyph types, this would result in a list with rendered glyphs 1. 2. 2.1. 2.2. 3. For nesting levels that are ordered, the string that replaces a placeholder in the glyph format for a particular paragraph depends on the paragraph's order within the list.
+    INDENT_FIRST_LINE = "indent_first_line"  # The amount of indentation for the first line of paragraphs at this level of nesting.
+    INDENT_START = "indent_start"  # The amount of indentation for paragraphs at this level of nesting. Applied to the side that corresponds to the start of the text, based on the paragraph's content direction.
+    TEXT_STYLE = "text_style"  # The text style of bullets at this level of nesting.
+    START_NUMBER = "start_number"  # The number of the first list item at this nesting level. A value of 0 is treated as a value of 1 for lettered lists and Roman numeral lists. For values of both 0 and 1, lettered and Roman numeral lists will begin at a and i respectively. This value is ignored for nesting levels with unordered glyphs.
+    GLYPH_TYPE = "glyph_type"  # The type of glyph used by bullets when paragraphs at this level of nesting is ordered. The glyph type determines the type of glyph used to replace placeholders within the glyphFormat when paragraphs at this level of nesting are ordered. For example, if the nesting level is 0, the glyphFormat is %0. and the glyph type is DECIMAL, then the rendered glyph would replace the placeholder %0 in the glyph format with a number corresponding to the list item's order within the list.
+    GLYPH_SYMBOL = "glyph_symbol"  # A custom glyph symbol used by bullets when paragraphs at this level of nesting is unordered. The glyph symbol replaces placeholders within the glyphFormat. For example, if the glyphSymbol is the solid circle corresponding to Unicode U+25cf code point and the glyphFormat is %0, the rendered glyph would be the solid circle.
 
 
-class ParagraphStyle(BaseModel):
+class ParagraphStyle(str, Enum):
     """
     Styles that apply to a whole paragraph.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#paragraphstyle
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    heading_id: Optional[str] = Field(
-        description=(
-            "The heading ID of the paragraph. If empty, then this paragraph is not a heading. This property is re",
-            "ad-only.",
-        ),
-        default=None,
-    )
-    named_style_type: Optional[NamedStyleType] = Field(
-        description=(
-            "The named style type of the paragraph. Since updating the named style type affects other properties ",
-            "within ParagraphStyle, the named style type is applied before the other properties are updated.",
-        ),
-        default=None,
-    )
-    alignment: Optional[Alignment] = Field(
-        description="The text alignment for this paragraph.",
-        default=None,
-    )
-    line_spacing: Optional[float] = Field(
-        description=(
-            "The amount of space between lines, as a percentage of normal, where normal is represented as 100.0. ",
-            "If unset, the value is inherited from the parent.",
-        ),
-        default=None,
-    )
-    direction: Optional[ContentDirection] = Field(
-        description=(
-            "The text direction of this paragraph. If unset, the value defaults to LEFT_TO_RIGHT since paragraph ",
-            "direction is not inherited.",
-        ),
-        default=None,
-    )
-    spacing_mode: Optional[SpacingMode] = Field(
-        description="The spacing mode for the paragraph.",
-        default=None,
-    )
-    space_above: Optional[Dimension] = Field(
-        description="The amount of extra space above the paragraph. If unset, the value is inherited from the parent.",
-        default=None,
-    )
-    space_below: Optional[Dimension] = Field(
-        description="The amount of extra space below the paragraph. If unset, the value is inherited from the parent.",
-        default=None,
-    )
-    border_between: Optional[ParagraphBorder] = Field(
-        description=(
-            "The border between this paragraph and the next and previous paragraphs. If unset, the value is inher",
-            "ited from the parent. The between border is rendered when the adjacent paragraph has the same border",
-            " and indent properties. Paragraph borders cannot be partially updated. When changing a paragraph bor",
-            "der, the new border must be specified in its entirety.",
-        ),
-        default=None,
-    )
-    border_top: Optional[ParagraphBorder] = Field(
-        description=(
-            "The border at the top of this paragraph. If unset, the value is inherited from the parent. The top b",
-            "order is rendered when the paragraph above has different border and indent properties. Paragraph bor",
-            "ders cannot be partially updated. When changing a paragraph border, the new border must be specified",
-            " in its entirety.",
-        ),
-        default=None,
-    )
-    border_bottom: Optional[ParagraphBorder] = Field(
-        description=(
-            "The border at the bottom of this paragraph. If unset, the value is inherited from the parent. The bo",
-            "ttom border is rendered when the paragraph below has different border and indent properties. Paragra",
-            "ph borders cannot be partially updated. When changing a paragraph border, the new border must be spe",
-            "cified in its entirety.",
-        ),
-        default=None,
-    )
-    border_left: Optional[ParagraphBorder] = Field(
-        description=(
-            "The border to the left of this paragraph. If unset, the value is inherited from the parent. Paragrap",
-            "h borders cannot be partially updated. When changing a paragraph border, the new border must be spec",
-            "ified in its entirety.",
-        ),
-        default=None,
-    )
-    border_right: Optional[ParagraphBorder] = Field(
-        description=(
-            "The border to the right of this paragraph. If unset, the value is inherited from the parent. Paragra",
-            "ph borders cannot be partially updated. When changing a paragraph border, the new border must be spe",
-            "cified in its entirety.",
-        ),
-        default=None,
-    )
-    indent_first_line: Optional[Dimension] = Field(
-        description=(
-            "The amount of indentation for the first line of the paragraph. If unset, the value is inherited from",
-            " the parent.",
-        ),
-        default=None,
-    )
-    indent_start: Optional[Dimension] = Field(
-        description=(
-            "The amount of indentation for the paragraph on the side that corresponds to the start of the text, b",
-            "ased on the current paragraph direction. If unset, the value is inherited from the parent.",
-        ),
-        default=None,
-    )
-    indent_end: Optional[list[Dimension]] = Field(
-        description=(
-            "The amount of indentation for the paragraph on the side that corresponds to the end of the text, bas",
-            "ed on the current paragraph direction. If unset, the value is inherited from the parent.",
-        ),
-        default=None,
-    )
-    tab_stops: Optional[TabStop] = Field(
-        description=(
-            "A list of the tab stops for this paragraph. The list of tab stops is not inherited. This property is",
-            " read-only.",
-        ),
-        default=None,
-    )
-    keep_lines_together: Optional[bool] = Field(
-        description=(
-            "Whether all lines of the paragraph should be laid out on the same page or column if possible. If uns",
-            "et, the value is inherited from the parent.",
-        ),
-        default=None,
-    )
-    keep_with_next: Optional[bool] = Field(
-        description=(
-            "Whether at least a part of this paragraph should be laid out on the same page or column as the next ",
-            "paragraph if possible. If unset, the value is inherited from the parent.",
-        ),
-        default=None,
-    )
-    avoid_widow_and_orphan: Optional[bool] = Field(
-        description=(
-            "Whether to avoid widows and orphans for the paragraph. If unset, the value is inherited from the par",
-            "ent.",
-        ),
-        default=None,
-    )
-    shading: Optional[Shading] = Field(
-        description="The shading of the paragraph. If unset, the value is inherited from the parent.",
-        default=None,
-    )
-    page_break_before: Optional[bool] = Field(
-        description=(
-            "Whether the current paragraph should always start at the beginning of a page. If unset, the value is",
-            " inherited from the parent. Attempting to update pageBreakBefore for paragraphs in unsupported regio",
-            "ns, including Table, Header, Footer and Footnote, can result in an invalid document state that retur",
-            "ns a 400 bad request error.",
-        ),
-        default=None,
-    )
+    HEADING_ID = "heading_id"  # The heading ID of the paragraph. If empty, then this paragraph is not a heading. This property is read-only.
+    NAMED_STYLE_TYPE = "named_style_type"  # The named style type of the paragraph. Since updating the named style type affects other properties within ParagraphStyle, the named style type is applied before the other properties are updated.
+    ALIGNMENT = "alignment"  # The text alignment for this paragraph.
+    LINE_SPACING = "line_spacing"  # The amount of space between lines, as a percentage of normal, where normal is represented as 100.0. If unset, the value is inherited from the parent.
+    DIRECTION = "direction"  # The text direction of this paragraph. If unset, the value defaults to LEFT_TO_RIGHT since paragraph direction is not inherited.
+    SPACING_MODE = "spacing_mode"  # The spacing mode for the paragraph.
+    SPACE_ABOVE = "space_above"  # The amount of extra space above the paragraph. If unset, the value is inherited from the parent.
+    SPACE_BELOW = "space_below"  # The amount of extra space below the paragraph. If unset, the value is inherited from the parent.
+    BORDER_BETWEEN = "border_between"  # The border between this paragraph and the next and previous paragraphs. If unset, the value is inherited from the parent. The between border is rendered when the adjacent paragraph has the same border and indent properties. Paragraph borders cannot be partially updated. When changing a paragraph border, the new border must be specified in its entirety.
+    BORDER_TOP = "border_top"  # The border at the top of this paragraph. If unset, the value is inherited from the parent. The top border is rendered when the paragraph above has different border and indent properties. Paragraph borders cannot be partially updated. When changing a paragraph border, the new border must be specified in its entirety.
+    BORDER_BOTTOM = "border_bottom"  # The border at the bottom of this paragraph. If unset, the value is inherited from the parent. The bottom border is rendered when the paragraph below has different border and indent properties. Paragraph borders cannot be partially updated. When changing a paragraph border, the new border must be specified in its entirety.
+    BORDER_LEFT = "border_left"  # The border to the left of this paragraph. If unset, the value is inherited from the parent. Paragraph borders cannot be partially updated. When changing a paragraph border, the new border must be specified in its entirety.
+    BORDER_RIGHT = "border_right"  # The border to the right of this paragraph. If unset, the value is inherited from the parent. Paragraph borders cannot be partially updated. When changing a paragraph border, the new border must be specified in its entirety.
+    INDENT_FIRST_LINE = "indent_first_line"  # The amount of indentation for the first line of the paragraph. If unset, the value is inherited from the parent.
+    INDENT_START = "indent_start"  # The amount of indentation for the paragraph on the side that corresponds to the start of the text, based on the current paragraph direction. If unset, the value is inherited from the parent.
+    INDENT_END = "indent_end"  # The amount of indentation for the paragraph on the side that corresponds to the end of the text, based on the current paragraph direction. If unset, the value is inherited from the parent.
+    TAB_STOPS = "tab_stops"  # A list of the tab stops for this paragraph. The list of tab stops is not inherited. This property is read-only.
+    KEEP_LINES_TOGETHER = "keep_lines_together"  # Whether all lines of the paragraph should be laid out on the same page or column if possible. If unset, the value is inherited from the parent.
+    KEEP_WITH_NEXT = "keep_with_next"  # Whether at least a part of this paragraph should be laid out on the same page or column as the next paragraph if possible. If unset, the value is inherited from the parent.
+    AVOID_WIDOW_AND_ORPHAN = "avoid_widow_and_orphan"  # Whether to avoid widows and orphans for the paragraph. If unset, the value is inherited from the parent.
+    SHADING = "shading"  # The shading of the paragraph. If unset, the value is inherited from the parent.
+    PAGE_BREAK_BEFORE = "page_break_before"  # Whether the current paragraph should always start at the beginning of a page. If unset, the value is inherited from the parent. Attempting to update pageBreakBefore for paragraphs in unsupported regions, including Table, Header, Footer and Footnote, can result in an invalid document state that returns a 400 bad request error.
 
 
 class PositionedObjectPropertiesSuggestionState(BaseModel):
@@ -3153,40 +2354,17 @@ class TextRun(BaseModel):
     )
 
 
-class AutoText(BaseModel):
+class AutoText(str, Enum):
     """
     A ParagraphElement representing a spot in the text that's dynamically replaced with content that can change over time, like a page number.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#autotext
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    type: Optional[list[Type]] = Field(
-        description="The type of this auto text.",
-        default=None,
-    )
-    suggested_insertion_ids: Optional[list[str]] = Field(
-        description=(
-            "The suggested insertion IDs. An AutoText may have multiple insertion IDs if it's a nested suggested ",
-            "change. If empty, then this is not a suggested insertion.",
-        ),
-        default=None,
-    )
-    suggested_deletion_ids: Optional[str] = Field(
-        description="The suggested deletion IDs. If empty, then there are no suggested deletions of this content.",
-        default=None,
-    )
-    text_style: Optional[TextStyle] = Field(
-        description="The text style of this AutoText.",
-        default=None,
-    )
-    suggested_text_style_changes: Optional[dict[str, SuggestedTextStyle]] = Field(
-        description="The suggested text style changes to this AutoText, keyed by suggestion ID.",
-        default=None,
-    )
+    TYPE = "type"  # The type of this auto text.
+    SUGGESTED_INSERTION_IDS = "suggested_insertion_ids"  # The suggested insertion IDs. An AutoText may have multiple insertion IDs if it's a nested suggested change. If empty, then this is not a suggested insertion.
+    SUGGESTED_DELETION_IDS = "suggested_deletion_ids"  # The suggested deletion IDs. If empty, then there are no suggested deletions of this content.
+    TEXT_STYLE = "text_style"  # The text style of this AutoText.
+    SUGGESTED_TEXT_STYLE_CHANGES = "suggested_text_style_changes"  # The suggested text style changes to this AutoText, keyed by suggestion ID.
 
 
 class ColumnBreak(BaseModel):
@@ -3444,29 +2622,15 @@ class ListProperties(BaseModel):
     )
 
 
-class NamedStyle(BaseModel):
+class NamedStyle(str, Enum):
     """
     A named style. Paragraphs in the document can inherit their TextStyle and ParagraphStyle from this named style when they have the same named style type.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#namedstyle
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    named_style_type: Optional[NamedStyleType] = Field(
-        description="The type of this named style.",
-        default=None,
-    )
-    text_style: Optional[TextStyle] = Field(
-        description="The text style of this named style.",
-        default=None,
-    )
-    paragraph_style: Optional[ParagraphStyle] = Field(
-        description="The paragraph style of this named style.",
-        default=None,
-    )
+    NAMED_STYLE_TYPE = "named_style_type"  # The type of this named style.
+    TEXT_STYLE = "text_style"  # The text style of this named style.
+    PARAGRAPH_STYLE = "paragraph_style"  # The paragraph style of this named style.
 
 
 class NamedStyles(BaseModel):
@@ -3980,162 +3144,29 @@ class Body(BaseModel):
     )
 
 
-class Document(BaseModel):
+class Document(str, Enum):
     """
     A Google Docs document.
     https://developers.google.com/workspace/docs/api/reference/rest/v1/documents?hl=en#resource:-document
     """
 
-    model_config = ConfigDict(
-        populate_by_name=True,
-        alias_generator=alias_generators.to_camel,
-    )
-
-    document_id: Optional[str] = Field(
-        description="Output only. The ID of the document.",
-        default=None,
-    )
-    title: Optional[list[str]] = Field(
-        description="The title of the document.",
-        default=None,
-    )
-    tabs: Optional[Tab] = Field(
-        description=(
-            "Tabs that are part of a document. Tabs can contain child tabs, a tab nested within another tab. Chil",
-            "d tabs are represented by the Tab.childTabs field.",
-        ),
-        default=None,
-    )
-    revision_id: Optional[str] = Field(
-        description=(
-            "Output only. The revision ID of the document. Can be used in update requests to specify which revisi",
-            "on of a document to apply updates to and how the request should behave if the document has been edit",
-            "ed since that revision. Only populated if the user has edit access to the document. The revision ID ",
-            "is not a sequential number but an opaque string. The format of the revision ID might change over tim",
-            "e. A returned revision ID is only guaranteed to be valid for 24 hours after it has been returned and",
-            " cannot be shared across users. If the revision ID is unchanged between calls, then the document has",
-            " not changed. Conversely, a changed ID (for the same document and user) usually means the document h",
-            "as been updated. However, a changed ID can also be due to internal factors such as ID format changes",
-            ".",
-        ),
-        default=None,
-    )
-    suggestions_view_mode: Optional[SuggestionsViewMode] = Field(
-        description=(
-            "Output only. The suggestions view mode applied to the document. Note: When editing a document, chang",
-            "es must be based on a document with SUGGESTIONS_INLINE.",
-        ),
-        default=None,
-    )
-    body: Optional[Body] = Field(
-        description=(
-            "Output only. The main body of the document. Legacy field: Instead, use Document.tabs.documentTab.bod",
-            "y, which exposes the actual document content from all tabs when the includeTabsContent parameter is ",
-            "set to true. If false or unset, this field contains information about the first tab in the document.",
-        ),
-        default=None,
-    )
-    headers: Optional[dict[str, Header]] = Field(
-        description=(
-            "Output only. The headers in the document, keyed by header ID. Legacy field: Instead, use Document.ta",
-            "bs.documentTab.headers, which exposes the actual document content from all tabs when the includeTabs",
-            "Content parameter is set to true. If false or unset, this field contains information about the first",
-            " tab in the document.",
-        ),
-        default=None,
-    )
-    footers: Optional[dict[str, Footer]] = Field(
-        description=(
-            "Output only. The footers in the document, keyed by footer ID. Legacy field: Instead, use Document.ta",
-            "bs.documentTab.footers, which exposes the actual document content from all tabs when the includeTabs",
-            "Content parameter is set to true. If false or unset, this field contains information about the first",
-            " tab in the document.",
-        ),
-        default=None,
-    )
-    footnotes: Optional[dict[str, Footnote]] = Field(
-        description=(
-            "Output only. The footnotes in the document, keyed by footnote ID. Legacy field: Instead, use Documen",
-            "t.tabs.documentTab.footnotes, which exposes the actual document content from all tabs when the inclu",
-            "deTabsContent parameter is set to true. If false or unset, this field contains information about the",
-            " first tab in the document.",
-        ),
-        default=None,
-    )
-    document_style: Optional[DocumentStyle] = Field(
-        description=(
-            "Output only. The style of the document. Legacy field: Instead, use Document.tabs.documentTab.documen",
-            "tStyle, which exposes the actual document content from all tabs when the includeTabsContent paramete",
-            "r is set to true. If false or unset, this field contains information about the first tab in the docu",
-            "ment.",
-        ),
-        default=None,
-    )
-    suggested_document_style_changes: Optional[dict[str, SuggestedDocumentStyle]] = (
-        Field(
-            description=(
-                "Output only. The suggested changes to the style of the document, keyed by suggestion ID. Legacy fiel",
-                "d: Instead, use Document.tabs.documentTab.suggestedDocumentStyleChanges, which exposes the actual do",
-                "cument content from all tabs when the includeTabsContent parameter is set to true. If false or unset",
-                ", this field contains information about the first tab in the document.",
-            ),
-            default=None,
-        )
-    )
-    named_styles: Optional[NamedStyles] = Field(
-        description=(
-            "Output only. The named styles of the document. Legacy field: Instead, use Document.tabs.documentTab.",
-            "namedStyles, which exposes the actual document content from all tabs when the includeTabsContent par",
-            "ameter is set to true. If false or unset, this field contains information about the first tab in the",
-            " document.",
-        ),
-        default=None,
-    )
-    suggested_named_styles_changes: Optional[dict[str, SuggestedNamedStyles]] = Field(
-        description=(
-            "Output only. The suggested changes to the named styles of the document, keyed by suggestion ID. Lega",
-            "cy field: Instead, use Document.tabs.documentTab.suggestedNamedStylesChanges, which exposes the actu",
-            "al document content from all tabs when the includeTabsContent parameter is set to true. If false or ",
-            "unset, this field contains information about the first tab in the document.",
-        ),
-        default=None,
-    )
-    lists: Optional[dict[str, List]] = Field(
-        description=(
-            "Output only. The lists in the document, keyed by list ID. Legacy field: Instead, use Document.tabs.d",
-            "ocumentTab.lists, which exposes the actual document content from all tabs when the includeTabsConten",
-            "t parameter is set to true. If false or unset, this field contains information about the first tab i",
-            "n the document.",
-        ),
-        default=None,
-    )
-    named_ranges: Optional[dict[str, NamedRanges]] = Field(
-        description=(
-            "Output only. The named ranges in the document, keyed by name. Legacy field: Instead, use Document.ta",
-            "bs.documentTab.namedRanges, which exposes the actual document content from all tabs when the include",
-            "TabsContent parameter is set to true. If false or unset, this field contains information about the f",
-            "irst tab in the document.",
-        ),
-        default=None,
-    )
-    inline_objects: Optional[dict[str, InlineObject]] = Field(
-        description=(
-            "Output only. The inline objects in the document, keyed by object ID. Legacy field: Instead, use Docu",
-            "ment.tabs.documentTab.inlineObjects, which exposes the actual document content from all tabs when th",
-            "e includeTabsContent parameter is set to true. If false or unset, this field contains information ab",
-            "out the first tab in the document.",
-        ),
-        default=None,
-    )
-    positioned_objects: Optional[dict[str, PositionedObject]] = Field(
-        description=(
-            "Output only. The positioned objects in the document, keyed by object ID. Legacy field: Instead, use ",
-            "Document.tabs.documentTab.positionedObjects, which exposes the actual document content from all tabs",
-            " when the includeTabsContent parameter is set to true. If false or unset, this field contains inform",
-            "ation about the first tab in the document.",
-        ),
-        default=None,
-    )
+    DOCUMENT_ID = "document_id"  # Output only. The ID of the document.
+    TITLE = "title"  # The title of the document.
+    TABS = "tabs"  # Tabs that are part of a document. Tabs can contain child tabs, a tab nested within another tab. Child tabs are represented by the Tab.childTabs field.
+    REVISION_ID = "revision_id"  # Output only. The revision ID of the document. Can be used in update requests to specify which revision of a document to apply updates to and how the request should behave if the document has been edited since that revision. Only populated if the user has edit access to the document. The revision ID is not a sequential number but an opaque string. The format of the revision ID might change over time. A returned revision ID is only guaranteed to be valid for 24 hours after it has been returned and cannot be shared across users. If the revision ID is unchanged between calls, then the document has not changed. Conversely, a changed ID (for the same document and user) usually means the document has been updated. However, a changed ID can also be due to internal factors such as ID format changes.
+    SUGGESTIONS_VIEW_MODE = "suggestions_view_mode"  # Output only. The suggestions view mode applied to the document. Note: When editing a document, changes must be based on a document with SUGGESTIONS_INLINE.
+    BODY = "body"  # Output only. The main body of the document. Legacy field: Instead, use Document.tabs.documentTab.body, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
+    HEADERS = "headers"  # Output only. The headers in the document, keyed by header ID. Legacy field: Instead, use Document.tabs.documentTab.headers, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
+    FOOTERS = "footers"  # Output only. The footers in the document, keyed by footer ID. Legacy field: Instead, use Document.tabs.documentTab.footers, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
+    FOOTNOTES = "footnotes"  # Output only. The footnotes in the document, keyed by footnote ID. Legacy field: Instead, use Document.tabs.documentTab.footnotes, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
+    DOCUMENT_STYLE = "document_style"  # Output only. The style of the document. Legacy field: Instead, use Document.tabs.documentTab.documentStyle, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
+    SUGGESTED_DOCUMENT_STYLE_CHANGES = "suggested_document_style_changes"  # Output only. The suggested changes to the style of the document, keyed by suggestion ID. Legacy field: Instead, use Document.tabs.documentTab.suggestedDocumentStyleChanges, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
+    NAMED_STYLES = "named_styles"  # Output only. The named styles of the document. Legacy field: Instead, use Document.tabs.documentTab.namedStyles, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
+    SUGGESTED_NAMED_STYLES_CHANGES = "suggested_named_styles_changes"  # Output only. The suggested changes to the named styles of the document, keyed by suggestion ID. Legacy field: Instead, use Document.tabs.documentTab.suggestedNamedStylesChanges, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
+    LISTS = "lists"  # Output only. The lists in the document, keyed by list ID. Legacy field: Instead, use Document.tabs.documentTab.lists, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
+    NAMED_RANGES = "named_ranges"  # Output only. The named ranges in the document, keyed by name. Legacy field: Instead, use Document.tabs.documentTab.namedRanges, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
+    INLINE_OBJECTS = "inline_objects"  # Output only. The inline objects in the document, keyed by object ID. Legacy field: Instead, use Document.tabs.documentTab.inlineObjects, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
+    POSITIONED_OBJECTS = "positioned_objects"  # Output only. The positioned objects in the document, keyed by object ID. Legacy field: Instead, use Document.tabs.documentTab.positionedObjects, which exposes the actual document content from all tabs when the includeTabsContent parameter is set to true. If false or unset, this field contains information about the first tab in the document.
 
 
 class DocumentTab(BaseModel):
