@@ -12,3 +12,32 @@ def get_fields(basemodel: BaseModel) -> str:
         str: A list of field names separated by commas.
     """
     return ", ".join([name for name, _ in basemodel.__annotations__.items()])
+
+
+def get_dict_request(basemodel: BaseModel) -> dict:
+    """
+    Get the dictionary representation of a Pydantic model.
+
+    Args:
+        basemodel (BaseModel): The Pydantic model to get the dictionary from.
+
+    Returns:
+        dict: A dictionary representation of the Pydantic model.
+    """
+    return basemodel.model_dump(by_alias=True, exclude_defaults=True)
+
+
+def get_dict_batch_request(basemodels: list[BaseModel]) -> list[dict]:
+    """
+    Get the dictionary representation of a Pydantic model for batch requests.
+
+    Args:
+        basemodels (list[BaseModel]): The Pydantic model to get the dictionary from.
+
+    Returns:
+        dict: A dictionary representation of the Pydantic model for batch requests.
+    """
+    result = []
+    for basemodel in basemodels:
+        result.append(get_dict_request(basemodel))
+    return result
