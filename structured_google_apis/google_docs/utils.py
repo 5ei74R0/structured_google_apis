@@ -11,7 +11,10 @@ def get_fields(basemodel: BaseModel) -> str:
     Returns:
         str: A list of used field names separated by commas.
     """
-    return ",".join([field for field in get_dict_request(basemodel).keys()])
+    fields = [field for field in get_dict_request(basemodel).keys()]
+    if len(fields) == 0:
+        return "*"
+    return ",".join(fields)
 
 
 def get_dict_request(basemodel: BaseModel) -> dict:
